@@ -38,7 +38,7 @@ namespace Mesh
         public NodeFactory(DomainBoundary[] boundaries)
         {
             this.Boundaries = boundaries;
-            Nodes = new Node[nnx, nny];
+            Nodes = new Node[nny, nnx];
             NodesDictionary = new Dictionary<int, Node>();
             CreateNodes();
             AssignGlobalIds();
@@ -57,32 +57,32 @@ namespace Mesh
             //Right Boundary
             for (int i = 1; i < nny; i++)
             {
-                Nodes[i, nny - 1] = CreateRightBoundaryNode(i);
-                Nodes[i, nny - 1].Id.Boundary = boundaryCounter;
+                Nodes[i, nnx - 1] = CreateRightBoundaryNode(i);
+                Nodes[i, nnx - 1].Id.Boundary = boundaryCounter;
                 boundaryCounter++;
             }
             //Top Boundary
-            for (int i = 0; i < nny - 1; i++)
+            for (int i = 1; i < nnx; i++)
             {
-                Nodes[nnx - 1, i] = CreateTopBoundaryNode(i);
-                Nodes[nnx - 1, i].Id.Boundary = boundaryCounter;
+                Nodes[nny - 1, nnx - 1 - i] = CreateTopBoundaryNode(i);
+                Nodes[nny - 1, nnx - 1 - i].Id.Boundary = boundaryCounter;
                 boundaryCounter++;
             }
             //Left Boundary
-            for (int i = 1; i < nnx - 1; i++)
+            for (int i = 1; i < nny - 1; i++)
             {
-                Nodes[i, 0] = CreateLeftBoundaryNode(i);
-                Nodes[i, 0].Id.Boundary = boundaryCounter;
+                Nodes[nny - 1 - i, 0] = CreateLeftBoundaryNode(i);
+                Nodes[nny - 1 - i, 0].Id.Boundary = boundaryCounter;
                 boundaryCounter++;
             }
             //Internal 
             var internalCounter = 0;
-            for (int i = 1; i < nnx - 1; i++)
+            for (int row = 1; row < nny - 1; row++)
             {
-                for (int j = 1; j < nny - 1; j++)
+                for (int column = 1; column < nnx - 1; column++)
                 {
-                    Nodes[i, j] = CreateInternalNode();
-                    Nodes[i, j].Id.Internal = internalCounter; 
+                    Nodes[row, column] = CreateInternalNode();
+                    Nodes[row, column].Id.Internal = internalCounter; 
                     internalCounter++;
                 }
             }
@@ -138,9 +138,9 @@ namespace Mesh
         private void  AssignGlobalIds()
         {
             var k = 0;
-            for (int row = 0; row < nnx; row++)
+            for (int row = 0; row < nny; row++)
             {
-                for (int column = 0; column < nny; column++)
+                for (int column = 0; column < nnx; column++)
                 {
                     Nodes[row, column].Id.Global = k;
                     NodesDictionary.Add(k, Nodes[row, column]);
