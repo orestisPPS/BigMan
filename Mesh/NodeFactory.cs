@@ -32,8 +32,8 @@ namespace Mesh
         /// <value></value>
         private List<Node> BoundaryNodes = new List<Node>();
         
-        private int nnx => Boundaries[0].boundaryNodes.Count();
-        private int nny => Boundaries[1].boundaryNodes.Count();
+        private int nnx => Boundaries[0].BoundaryNodesCoordinates.GetLength(0);
+        private int nny => Boundaries[1].BoundaryNodesCoordinates.GetLength(0);
 
         public NodeFactory(DomainBoundary[] boundaries)
         {
@@ -48,74 +48,74 @@ namespace Mesh
         {
             var boundaryCounter = 0;
             //Bottom Boundary
-            for (int column = 0; column < nny; column++)
+            for (int i = 0; i < nnx; i++)
             {
-                Nodes[0, column] = CreateBottomBoundaryNode(column);
-                Nodes[0, column].Id.Boundary = boundaryCounter;
+                Nodes[0, i] = CreateBottomBoundaryNode(i);
+                Nodes[0, i].Id.Boundary = boundaryCounter;
                 boundaryCounter++;
             }
             //Right Boundary
-            for (int row = 0; row < nnx - 1; row++)
+            for (int i = 1; i < nny; i++)
             {
-                Nodes[row, nny - 1] = CreateRightBoundaryNode(row);
-                Nodes[row, nny - 1].Id.Boundary = boundaryCounter;
+                Nodes[i, nny - 1] = CreateRightBoundaryNode(i);
+                Nodes[i, nny - 1].Id.Boundary = boundaryCounter;
                 boundaryCounter++;
             }
             //Top Boundary
-            for (int column = 1; column < nny - 1; column++)
+            for (int i = 0; i < nny - 1; i++)
             {
-                Nodes[nnx - 1, column] = CreateTopBoundaryNode(column);
-                Nodes[nnx - 1, column].Id.Boundary = boundaryCounter;
+                Nodes[nnx - 1, i] = CreateTopBoundaryNode(i);
+                Nodes[nnx - 1, i].Id.Boundary = boundaryCounter;
                 boundaryCounter++;
             }
             //Left Boundary
-            for (int row = 1; row < nnx - 1; row++)
+            for (int i = 1; i < nnx - 1; i++)
             {
-                Nodes[row, 0] = CreateLeftBoundaryNode(row);
-                Nodes[row, 0].Id.Boundary = boundaryCounter;
+                Nodes[i, 0] = CreateLeftBoundaryNode(i);
+                Nodes[i, 0].Id.Boundary = boundaryCounter;
                 boundaryCounter++;
             }
             //Internal 
             var internalCounter = 0;
-            for (int row = 1; row < nnx - 1; row++)
+            for (int i = 1; i < nnx - 1; i++)
             {
-                for (int column = 1; column < nny - 1; column++)
+                for (int j = 1; j < nny - 1; j++)
                 {
-                    Nodes[row, column] = CreateInternalNode();
-                    Nodes[row, column].Id.Internal = internalCounter; 
+                    Nodes[i, j] = CreateInternalNode();
+                    Nodes[i, j].Id.Internal = internalCounter; 
                     internalCounter++;
                 }
             }
         }
 
-        private Node CreateBottomBoundaryNode(int column)
+        private Node CreateBottomBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[0][column,0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[0][column,1];
+            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[0].BoundaryNodesCoordinates[i,0];
+            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[0].BoundaryNodesCoordinates[i,1];
             return node;
         }
-        private Node CreateRightBoundaryNode(int row)
+        private Node CreateRightBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[1][row, 0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[1][row, 1];
+            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[1].BoundaryNodesCoordinates[i, 0];
+            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[1].BoundaryNodesCoordinates[i, 1];
             return node;  
         }
         
-        private Node CreateTopBoundaryNode(int column)
+        private Node CreateTopBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[2][nnx -1 - column,0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[2][nnx -1 - column,1];
+            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[2].BoundaryNodesCoordinates[nnx -1 - i,0];
+            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[2].BoundaryNodesCoordinates[nnx -1 - i,1];
             return node;
         }
 
-        private Node CreateLeftBoundaryNode(int row)
+        private Node CreateLeftBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[3][row, 0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[3][row, 1];
+            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[3].BoundaryNodesCoordinates[i, 0];
+            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[3].BoundaryNodesCoordinates[i, 1];
             return node;
         }
         private Node CreateInternalNode()
@@ -131,7 +131,7 @@ namespace Mesh
             node.DegreesOfFreedom.Add(new DegreeOfFreedomType("PositionY"), -1);
             node.Coordinates.Add(new CoordinateType("NaturalX"), -1);
             node.Coordinates.Add(new CoordinateType("NaturalY"), -1);
-
+            
             return node;
         }
 
@@ -144,6 +144,8 @@ namespace Mesh
                 {
                     Nodes[row, column].Id.Global = k;
                     NodesDictionary.Add(k, Nodes[row, column]);
+                    k++;
+                    Console.WriteLine(Nodes[row, column].Id.Global + " " + Nodes[row, column].Id.Internal + " " + Nodes[row, column].Id.Boundary);// + " " + Nodes[row, column].Coordinates[new CoordinateType("NaturalX")] + " " + Nodes[row, column].Coordinates[new CoordinateType("NaturalY")]);
                 }
             }
         }

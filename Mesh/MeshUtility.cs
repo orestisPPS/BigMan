@@ -13,9 +13,9 @@
                 {throw new Exception("INSERT 4 BOUNDARIES"); }
             else if (DomainBoundaries[0].Id != 0 || DomainBoundaries[1].Id != 1 || DomainBoundaries[2].Id != 2 || DomainBoundaries[3].Id != 3)
                 {throw new Exception("INSERT BOUNDARIES WITH THIS ORDER : BOTTOM(0) -> RIGHT(1) -> TOP(2) -> LEFT(3)"); }
-            else if  (DomainBoundaries[0].boundaryNodes.Count() != DomainBoundaries[2].boundaryNodes.Count()) 
+            else if  (DomainBoundaries[0].BoundaryNodesCoordinates.GetLength(0) != DomainBoundaries[2].BoundaryNodesCoordinates.GetLength(0)) 
                 {throw new Exception("MISMATCH IN NODE NUMBER IN BOUNDARIES: 0 AND 2");}
-            else if  (DomainBoundaries[1].boundaryNodes.Count() != DomainBoundaries[3].boundaryNodes.Count())
+            else if  (DomainBoundaries[1].BoundaryNodesCoordinates.GetLength(0) != DomainBoundaries[3].BoundaryNodesCoordinates.GetLength(0))
                 {throw new Exception("MISMATCH IN NODE NUMBER IN BOUNDARIES: 1 AND 3");}
             else 
                 {Console.WriteLine("INPUT DATA CHECKED! PROCCEED TO MESH GENERATOR...");}
