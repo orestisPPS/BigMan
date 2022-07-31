@@ -106,8 +106,8 @@ namespace Mesh
         private Node CreateTopBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[2].BoundaryNodesCoordinates[nnx -1 - i,0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[2].BoundaryNodesCoordinates[nnx -1 - i,1];
+            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[2].BoundaryNodesCoordinates[i,0];
+            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[2].BoundaryNodesCoordinates[i,1];
             return node;
         }
 
@@ -127,13 +127,13 @@ namespace Mesh
         private Node InitializeNode()
         {
             var node = new Node();
-            node.DegreesOfFreedom.Add(new DegreeOfFreedomType("PositionX"), -1);
-            node.DegreesOfFreedom.Add(new DegreeOfFreedomType("PositionY"), -1);
+            node.DegreesOfFreedom.Add(new PositionX, new PositionX.value);
             node.Coordinates.Add(new CoordinateType("NaturalX"), -1);
             node.Coordinates.Add(new CoordinateType("NaturalY"), -1);
             
             return node;
         }
+        
 
         private void  AssignGlobalIds()
         {
