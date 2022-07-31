@@ -1,11 +1,12 @@
 namespace Discretization
 {
-    public class Template : ICoordinate
+    public class Template : Coordinate
     {
-        public double Value {get; set;}
-
         public Template()
         {
+            this.Type = "Template";
         }
+               
+        
     }
 }

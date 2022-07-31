@@ -4,15 +4,12 @@ namespace Discretization
     {   
         public NodeId Id {get; set;}
 
-        public Dictionary<CoordinateType, double> Coordinates {get; set;}
+        public Dictionary <Coordinate, double> Coordinates {get; set;} = new Dictionary <Coordinate, double>();
 
-        public Dictionary<DegreeOfFreedomType, double> DegreesOfFreedom {get; set;}
+        public Dictionary<DegreeOfFreedom, double> DegreesOfFreedom {get; set;} = new Dictionary<DegreeOfFreedom, double>();
         
         public Node()
         {
             Id = new NodeId();
-            Coordinates = new Dictionary<CoordinateType, double>();
-            DegreesOfFreedom = new Dictionary<DegreeOfFreedomType, double>();
-        }
     }
 }

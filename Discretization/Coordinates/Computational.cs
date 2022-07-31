@@ -1,11 +1,10 @@
 namespace Discretization
 {
-    public class Computational : ICoordinate
+    public class Computational : Coordinate
     {
-        public double Value {get; set;} = -1d;
-
         public Computational()
         {
+            this.Type = "Computational";
         }
     }
 }

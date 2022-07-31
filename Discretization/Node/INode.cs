@@ -8,15 +8,18 @@ namespace Discretization
         /// </summary>
         /// <value></value>
         public NodeId Id {get; set;}
+        /// <summary>
+        /// A dictionary with coordinate objects as key and coordinate value as value.
+        /// The coordinates can be on the natural, template or computational domain.
+        /// </summary>
+        /// <value></value>
         public Dictionary<Coordinate, double> Coordinates {get; set;}
-        public CoordinateOne CoordinateOne {get; set;}
-        public CoordinateTwo CoordinateTwo {get; set;}
 
         /// <summary>
         /// A dictionary containing a DOF type object as a key (temperature, displacement) 
         /// </summary>
         /// <value></value>
-        public Dictionary<string, double> DegreesOfFreedom {get; set;}
+        public Dictionary<DegreeOfFreedom, double> DegreesOfFreedom {get; set;}
 
     }
 }
