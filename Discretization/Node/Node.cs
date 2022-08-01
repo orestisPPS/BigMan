@@ -15,11 +15,11 @@ namespace Discretization
 
         public Dictionary <CoordinateType, Coordinate> Coordinates {get; set;} = new Dictionary <CoordinateType, Coordinate>();
 
-        public Dictionary<DegreeOfFreedom, double> DegreesOfFreedom {get; set;} = new Dictionary<DegreeOfFreedom, double>();
+        public Dictionary<DegreeOfFreedom, DegreeOfFreedom> DegreesOfFreedom {get; set;} = new Dictionary<DegreeOfFreedom, DegreeOfFreedom>();
         
         public Node()
         {
-            
+            ALTER
         }
     }
 }
