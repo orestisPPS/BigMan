@@ -42,6 +42,20 @@ namespace Mesh
             NodesDictionary = new Dictionary<int, Node>();
             CreateNodes();
             AssignGlobalIds();
+
+            var node = new Node();
+            var PositionX = new PositionX();
+            var PositionY = new PositionY();
+            var NaturalX = new NaturalX();
+            var NaturalY = new NaturalY();
+node.Coordinates.Add(NaturalX, -1);
+                        foreach (var coordinate in node.Coordinates)
+            {
+                if (coordinate is NaturalX)
+                {
+                    Console.WriteLine("Found NaturalX");
+                }
+            }
         }
 
         private void CreateNodes()
@@ -91,31 +105,37 @@ namespace Mesh
         private Node CreateBottomBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[0].BoundaryNodesCoordinates[i,0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[0].BoundaryNodesCoordinates[i,1];
+            // node.Coordinates[new CoordinateType("PositionX")] = Boundaries[0].BoundaryNodesCoordinates[i,0];
+            // node.Coordinates[new CoordinateType("PositionY")] = Boundaries[0].BoundaryNodesCoordinates[i,1];
             return node;
         }
         private Node CreateRightBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[1].BoundaryNodesCoordinates[i, 0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[1].BoundaryNodesCoordinates[i, 1];
+            // node.Coordinates[new CoordinateType("PositionX")] = Boundaries[1].BoundaryNodesCoordinates[i, 0];
+            // node.Coordinates[new CoordinateType("PositionY")] = Boundaries[1].BoundaryNodesCoordinates[i, 1];
             return node;  
         }
         
         private Node CreateTopBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[2].BoundaryNodesCoordinates[i,0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[2].BoundaryNodesCoordinates[i,1];
+            // node.Coordinates[new CoordinateType("PositionX")] = Boundaries[2].BoundaryNodesCoordinates[i,0];
+            // node.Coordinates[new CoordinateType("PositionY")] = Boundaries[2].BoundaryNodesCoordinates[i,1];
             return node;
         }
 
         private Node CreateLeftBoundaryNode(int i)
         {
             var node = InitializeNode();
-            node.Coordinates[new CoordinateType("PositionX")] = Boundaries[3].BoundaryNodesCoordinates[i, 0];
-            node.Coordinates[new CoordinateType("PositionY")] = Boundaries[3].BoundaryNodesCoordinates[i, 1];
+            
+            //node.Coordinates[NaturalX()] = Boundaries[3].BoundaryNodesCoordinates[i,0];
+            // Console.WriteLine(node.Coordinates[new NaturalX()].GetHashCode().                          // NaturalX.ReferenceEquals(null)]);
+            // node.Coordinates[new NaturalX()] = 1E6;
+            // Console.WriteLine(node.Coordinates[new NaturalX()]);
+            // // node.Coordinates[NaturalX] = Boundaries[3].BoundaryNodesCoordinates[i,0];
+            // node.Coordinates["PositionX")] = Boundaries[3].BoundaryNodesCoordinates[i, 0];
+            // node.Coordinates["PositionY")] = Boundaries[3].BoundaryNodesCoordinates[i, 1];
             return node;
         }
         private Node CreateInternalNode()
@@ -127,10 +147,14 @@ namespace Mesh
         private Node InitializeNode()
         {
             var node = new Node();
-            node.DegreesOfFreedom.Add(new PositionX, new PositionX.value);
-            node.Coordinates.Add(new CoordinateType("NaturalX"), -1);
-            node.Coordinates.Add(new CoordinateType("NaturalY"), -1);
-            
+            var PositionX = new PositionX();
+            var PositionY = new PositionY();
+            var NaturalX = new NaturalX();
+            var NaturalY = new NaturalY();
+            node.DegreesOfFreedom.Add(PositionX, PositionX.Value);
+            node.DegreesOfFreedom.Add(PositionY, PositionY.Value);
+            node.Coordinates.Add(NaturalX, NaturalX.Value);
+            node.Coordinates.Add(NaturalY, NaturalY.Value);
             return node;
         }
         
@@ -142,10 +166,20 @@ namespace Mesh
             {
                 for (int column = 0; column < nnx; column++)
                 {
-                    Nodes[row, column].Id.Global = k;
-                    NodesDictionary.Add(k, Nodes[row, column]);
-                    k++;
-                    Console.WriteLine(Nodes[row, column].Id.Global + " " + Nodes[row, column].Id.Internal + " " + Nodes[row, column].Id.Boundary);// + " " + Nodes[row, column].Coordinates[new CoordinateType("NaturalX")] + " " + Nodes[row, column].Coordinates[new CoordinateType("NaturalY")]);
+                    // Nodes[row, column].Id.Global = k;
+                    // NodesDictionary.Add(k, Nodes[row, column]);
+                    // k++;
+                    // Console.WriteLine(Nodes[row, column].Id.Global + " " + Nodes[row, column].Id.Internal + " " + Nodes[row, column].Id.Boundary);// + " " + Nodes[row, column].Coordinates[new CoordinateType("NaturalX")] + " " + Nodes[row, column].Coordinates[new CoordinateType("NaturalY")]);
+                    // Nodes[0,0].Coordinates.TryGetValue(new NaturalX().GetHashCode(),)      [new NaturalX()] = 1;
+                    
+                        
+                    foreach (var coordinate in Nodes[row, column].Coordinates)
+                    {
+                        if (coordinate is NaturalX)
+                        {
+                            Console.WriteLine("Found NaturalX");
+                        }
+                    }
                 }
             }
         }

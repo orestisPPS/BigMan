@@ -19,6 +19,7 @@
                 {throw new Exception("MISMATCH IN NODE NUMBER IN BOUNDARIES: 1 AND 3");}
             else 
                 {Console.WriteLine("INPUT DATA CHECKED! PROCCEED TO MESH GENERATOR...");}
+
         }
 
         // public static Node NeighbourFinder(Node node, string direction) 

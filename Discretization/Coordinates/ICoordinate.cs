@@ -2,8 +2,7 @@ namespace Discretization
 {
     public interface ICoordinate
     {
-        public Natural Natural {get; set;} 
-        public Computational Computational {get; set;} 
-        public Template Template {get; set;} 
+        public double Value {get; set;}
+        public string Type {get; set;}
     }
 }

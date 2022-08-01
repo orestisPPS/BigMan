@@ -13,7 +13,7 @@ namespace Discretization
         /// The coordinates can be on the natural, template or computational domain.
         /// </summary>
         /// <value></value>
-        public Dictionary<Coordinate, double> Coordinates {get; set;}
+        public Dictionary <CoordinateType, Coordinate> Coordinates {get; set;} 
 
         /// <summary>
         /// A dictionary containing a DOF type object as a key (temperature, displacement) 
