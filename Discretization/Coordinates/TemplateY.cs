@@ -1,6 +1,6 @@
 namespace Discretization
 {
-    public class TemplateY : ICoordinate
+    public class TemplateY : Coordinate
     {
         public double Value {get; set;}
         public string Type {get; set;}

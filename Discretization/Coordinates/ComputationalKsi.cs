@@ -1,6 +1,6 @@
 namespace Discretization
 {
-    public class ComputationalKsi : ICoordinate
+    public class ComputationalKsi : Coordinate
     {
         public double Value {get; set;}
         public string Type {get; set;}

@@ -1,6 +1,6 @@
 namespace Discretization
 {
-    public class NaturalY : ICoordinate
+    public class NaturalY : Coordinate
     {
         public double Value { get; set; }
         public string Type { get; set; }

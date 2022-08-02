@@ -10,7 +10,7 @@ namespace Discretization
         ComputationalIta
     }
 
-    public class Coordinates : ICoordinate
+    public class Coordinate : ICoordinate
     {
         public double Value { get; set; }
         public string Type { get; set; }

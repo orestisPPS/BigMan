@@ -1,25 +1,16 @@
+using Constitutive;
 namespace Discretization 
 {
-    public enum CoordinateType
-    {
-        NaturalX,
-        NaturalY,
-        ComputationalX,
-        ComputationalY,
-        TemplateX,
-        TemplateY
-    }
     public class Node : INode
     {   
         public NodeId Id {get; set;} = new NodeId();
 
         public Dictionary <CoordinateType, Coordinate> Coordinates {get; set;} = new Dictionary <CoordinateType, Coordinate>();
 
-        public Dictionary<DegreeOfFreedom, DegreeOfFreedom> DegreesOfFreedom {get; set;} = new Dictionary<DegreeOfFreedom, DegreeOfFreedom>();
+        public Dictionary<DegreeOfFreedomType, DegreeOfFreedom> DegreesOfFreedom {get; set;} = new Dictionary<DegreeOfFreedomType, DegreeOfFreedom>();
         
         public Node()
         {
-            ALTER
         }
     }
 }

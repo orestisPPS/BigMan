@@ -1,3 +1,4 @@
+using Constitutive;
 namespace Discretization
 {
     public interface INode  
@@ -19,7 +20,7 @@ namespace Discretization
         /// A dictionary containing a DOF type object as a key (temperature, displacement) 
         /// </summary>
         /// <value></value>
-        public Dictionary<DegreeOfFreedom, double> DegreesOfFreedom {get; set;}
+        public Dictionary<DegreeOfFreedomType, DegreeOfFreedom> DegreesOfFreedom {get; set;}
 
     }
 }

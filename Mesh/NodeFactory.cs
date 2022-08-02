@@ -1,5 +1,6 @@
 using utility;
 using Discretization;
+using Constitutive;
 namespace Mesh
 {
     public class NodeFactory
@@ -43,19 +44,16 @@ namespace Mesh
             CreateNodes();
             AssignGlobalIds();
 
-            var node = new Node();
-            var PositionX = new PositionX();
-            var PositionY = new PositionY();
-            var NaturalX = new NaturalX();
-            var NaturalY = new NaturalY();
-node.Coordinates.Add(NaturalX, -1);
-                        foreach (var coordinate in node.Coordinates)
+            for (int row = 0; row < nny; row++)
             {
-                if (coordinate is NaturalX)
+                for (int column = 0; column < nnx; column++)
                 {
-                    Console.WriteLine("Found NaturalX");
+                    var node =  Nodes[row, column];
+                    Console.WriteLine(node.Id.Global + " " + node.Id.Internal + " " + node.Id.Boundary + " "
+                    + node.Coordinates[CoordinateType.NaturalX].Value + " " + node.Coordinates[CoordinateType.NaturalY].Value);
                 }
             }
+
         }
 
         private void CreateNodes()
@@ -64,29 +62,25 @@ node.Coordinates.Add(NaturalX, -1);
             //Bottom Boundary
             for (int i = 0; i < nnx; i++)
             {
-                Nodes[0, i] = CreateBottomBoundaryNode(i);
-                Nodes[0, i].Id.Boundary = boundaryCounter;
+                Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 0, nodalBoundaryId: boundaryCounter);
                 boundaryCounter++;
             }
             //Right Boundary
             for (int i = 1; i < nny; i++)
             {
-                Nodes[i, nnx - 1] = CreateRightBoundaryNode(i);
-                Nodes[i, nnx - 1].Id.Boundary = boundaryCounter;
+                Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 1, nodalBoundaryId: boundaryCounter);
                 boundaryCounter++;
             }
             //Top Boundary
             for (int i = 1; i < nnx; i++)
             {
-                Nodes[nny - 1, nnx - 1 - i] = CreateTopBoundaryNode(i);
-                Nodes[nny - 1, nnx - 1 - i].Id.Boundary = boundaryCounter;
+                Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 2, nodalBoundaryId: boundaryCounter);
                 boundaryCounter++;
             }
             //Left Boundary
             for (int i = 1; i < nny - 1; i++)
             {
-                Nodes[nny - 1 - i, 0] = CreateLeftBoundaryNode(i);
-                Nodes[nny - 1 - i, 0].Id.Boundary = boundaryCounter;
+                Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 3, nodalBoundaryId: boundaryCounter);
                 boundaryCounter++;
             }
             //Internal 
@@ -95,69 +89,43 @@ node.Coordinates.Add(NaturalX, -1);
             {
                 for (int column = 1; column < nnx - 1; column++)
                 {
-                    Nodes[row, column] = CreateInternalNode();
-                    Nodes[row, column].Id.Internal = internalCounter; 
+                    Nodes[row, column] = InitializeInternalNode(positionInternal : internalCounter);
                     internalCounter++;
                 }
             }
         }
 
-        private Node CreateBottomBoundaryNode(int i)
-        {
-            var node = InitializeNode();
-            // node.Coordinates[new CoordinateType("PositionX")] = Boundaries[0].BoundaryNodesCoordinates[i,0];
-            // node.Coordinates[new CoordinateType("PositionY")] = Boundaries[0].BoundaryNodesCoordinates[i,1];
-            return node;
-        }
-        private Node CreateRightBoundaryNode(int i)
-        {
-            var node = InitializeNode();
-            // node.Coordinates[new CoordinateType("PositionX")] = Boundaries[1].BoundaryNodesCoordinates[i, 0];
-            // node.Coordinates[new CoordinateType("PositionY")] = Boundaries[1].BoundaryNodesCoordinates[i, 1];
-            return node;  
-        }
-        
-        private Node CreateTopBoundaryNode(int i)
-        {
-            var node = InitializeNode();
-            // node.Coordinates[new CoordinateType("PositionX")] = Boundaries[2].BoundaryNodesCoordinates[i,0];
-            // node.Coordinates[new CoordinateType("PositionY")] = Boundaries[2].BoundaryNodesCoordinates[i,1];
-            return node;
-        }
-
-        private Node CreateLeftBoundaryNode(int i)
-        {
-            var node = InitializeNode();
-            
-            //node.Coordinates[NaturalX()] = Boundaries[3].BoundaryNodesCoordinates[i,0];
-            // Console.WriteLine(node.Coordinates[new NaturalX()].GetHashCode().                          // NaturalX.ReferenceEquals(null)]);
-            // node.Coordinates[new NaturalX()] = 1E6;
-            // Console.WriteLine(node.Coordinates[new NaturalX()]);
-            // // node.Coordinates[NaturalX] = Boundaries[3].BoundaryNodesCoordinates[i,0];
-            // node.Coordinates["PositionX")] = Boundaries[3].BoundaryNodesCoordinates[i, 0];
-            // node.Coordinates["PositionY")] = Boundaries[3].BoundaryNodesCoordinates[i, 1];
-            return node;
-        }
-        private Node CreateInternalNode()
-        {
-            var node = InitializeNode();
-            return node;
-        }
-
-        private Node InitializeNode()
+        private Node InitializeBoundaryNode(int positionInBoundary, int boundaryId , int nodalBoundaryId)
         {
             var node = new Node();
-            var PositionX = new PositionX();
-            var PositionY = new PositionY();
-            var NaturalX = new NaturalX();
-            var NaturalY = new NaturalY();
-            node.DegreesOfFreedom.Add(PositionX, PositionX.Value);
-            node.DegreesOfFreedom.Add(PositionY, PositionY.Value);
-            node.Coordinates.Add(NaturalX, NaturalX.Value);
-            node.Coordinates.Add(NaturalY, NaturalY.Value);
+            AssignBoundaryNodeCoordinates(positionInBoundary, boundaryId, node);
+            AssignValueToBoundaryDOF(positionInBoundary, boundaryId, node);
+            node.Id.Boundary = nodalBoundaryId;
             return node;
         }
-        
+        private void AssignBoundaryNodeCoordinates(int positionInBoundary, int boundaryId, Node node)
+        {
+            node.Coordinates.Add(CoordinateType.NaturalX, new NaturalX());
+            node.Coordinates.Add(CoordinateType.NaturalY, new NaturalY());
+            node.Coordinates[CoordinateType.NaturalX].Value = Boundaries[boundaryId].BoundaryNodesCoordinates[positionInBoundary, 0];
+            node.Coordinates[CoordinateType.NaturalY].Value = Boundaries[boundaryId].BoundaryNodesCoordinates[positionInBoundary, 1];
+        }
+        private void AssignValueToBoundaryDOF(int positionInBoundary, int boundaryId, Node node)
+        {
+            node.DegreesOfFreedom.Add(DegreeOfFreedomType.X, new X());
+            node.DegreesOfFreedom.Add(DegreeOfFreedomType.Y, new Y());
+            node.DegreesOfFreedom[DegreeOfFreedomType.X].Value = node.Coordinates[CoordinateType.NaturalX].Value;
+            node.DegreesOfFreedom[DegreeOfFreedomType.Y].Value = node.Coordinates[CoordinateType.NaturalY].Value;
+        }
+        private Node InitializeInternalNode(int positionInternal)
+        {
+            var node = new Node();
+            node.DegreesOfFreedom.Add(DegreeOfFreedomType.X, new X());
+            node.DegreesOfFreedom.Add(DegreeOfFreedomType.Y, new Y());
+            node.Id.Internal = positionInternal;
+            return node;
+        }
+
 
         private void  AssignGlobalIds()
         {
@@ -166,20 +134,8 @@ node.Coordinates.Add(NaturalX, -1);
             {
                 for (int column = 0; column < nnx; column++)
                 {
-                    // Nodes[row, column].Id.Global = k;
-                    // NodesDictionary.Add(k, Nodes[row, column]);
-                    // k++;
-                    // Console.WriteLine(Nodes[row, column].Id.Global + " " + Nodes[row, column].Id.Internal + " " + Nodes[row, column].Id.Boundary);// + " " + Nodes[row, column].Coordinates[new CoordinateType("NaturalX")] + " " + Nodes[row, column].Coordinates[new CoordinateType("NaturalY")]);
-                    // Nodes[0,0].Coordinates.TryGetValue(new NaturalX().GetHashCode(),)      [new NaturalX()] = 1;
-                    
-                        
-                    foreach (var coordinate in Nodes[row, column].Coordinates)
-                    {
-                        if (coordinate is NaturalX)
-                        {
-                            Console.WriteLine("Found NaturalX");
-                        }
-                    }
+                    Nodes[row, column].Id.Global = k;
+                    k++;
                 }
             }
         }
