@@ -5,8 +5,8 @@ namespace Mesh
     public interface IMesh
     {
         public Node[,] Nodes { get;}
-        public int NumberOfNodesDirectionOne {get; internal set;}
-        public int NumberOfNodesDirectionTwo {get; internal set;}
+        public int NumberOfNodesDirectionOne {get; set;}
+        public int NumberOfNodesDirectionTwo {get; set;}
         private void CreateMesh()
         {
             
