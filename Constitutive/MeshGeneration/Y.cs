@@ -7,5 +7,10 @@ namespace Constitutive
         {
             Value = -1d;
         }
+
+        public Y(double value)
+        {
+            Value = value;
+        }
     }
 }

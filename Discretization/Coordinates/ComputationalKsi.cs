@@ -2,12 +2,15 @@ namespace Discretization
 {
     public class ComputationalKsi : Coordinate
     {
-        public double Value {get; set;}
-        public string Type {get; set;}
+        public string Type => "ComputationalKsi";
         public ComputationalKsi()
         {
-            this.Value = -1;
-            this.Type = "ComputationalKsi";
+
+        }
+
+        public ComputationalKsi(double value)
+        {
+            this.Value = value;
         }
     }
 }

@@ -49,8 +49,8 @@ namespace Mesh
                 for (int column = 0; column < nnx; column++)
                 {
                     var node =  Nodes[row, column];
-                    Console.WriteLine(node.Id.Global + " " + node.Id.Internal + " " + node.Id.Boundary + " "
-                    + node.Coordinates[CoordinateType.NaturalX].Value + " " + node.Coordinates[CoordinateType.NaturalY].Value);
+                    Console.WriteLine("G. ID = " + node.Id.Global + " I. ID = " +  + node.Id.Internal + " B. ID = "  + node.Id.Boundary +
+                    " X = " + node.Coordinates[CoordinateType.NaturalX].Value + " Y = " +  + node.Coordinates[CoordinateType.NaturalY].Value);
                 }
             }
 
@@ -68,19 +68,19 @@ namespace Mesh
             //Right Boundary
             for (int i = 1; i < nny; i++)
             {
-                Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 1, nodalBoundaryId: boundaryCounter);
+                Nodes[i, nnx - 1] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 1, nodalBoundaryId: boundaryCounter);
                 boundaryCounter++;
             }
             //Top Boundary
             for (int i = 1; i < nnx; i++)
             {
-                Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 2, nodalBoundaryId: boundaryCounter);
+                Nodes[nny - 1, nnx - 1 - i] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 2, nodalBoundaryId: boundaryCounter);
                 boundaryCounter++;
             }
             //Left Boundary
             for (int i = 1; i < nny - 1; i++)
             {
-                Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 3, nodalBoundaryId: boundaryCounter);
+                Nodes[nny - 1 - i, 0] = InitializeBoundaryNode(positionInBoundary : i, boundaryId : 3, nodalBoundaryId: boundaryCounter);
                 boundaryCounter++;
             }
             //Internal 
@@ -99,33 +99,32 @@ namespace Mesh
         {
             var node = new Node();
             AssignBoundaryNodeCoordinates(positionInBoundary, boundaryId, node);
-            AssignValueToBoundaryDOF(positionInBoundary, boundaryId, node);
+            AssignValueToBoundaryDOF(node);
             node.Id.Boundary = nodalBoundaryId;
             return node;
         }
         private void AssignBoundaryNodeCoordinates(int positionInBoundary, int boundaryId, Node node)
         {
-            node.Coordinates.Add(CoordinateType.NaturalX, new NaturalX());
-            node.Coordinates.Add(CoordinateType.NaturalY, new NaturalY());
-            node.Coordinates[CoordinateType.NaturalX].Value = Boundaries[boundaryId].BoundaryNodesCoordinates[positionInBoundary, 0];
-            node.Coordinates[CoordinateType.NaturalY].Value = Boundaries[boundaryId].BoundaryNodesCoordinates[positionInBoundary, 1];
+            node.Coordinates.Add(CoordinateType.NaturalX, new NaturalX(Boundaries[boundaryId].BoundaryNodesCoordinates[positionInBoundary, 0]));
+            node.Coordinates.Add(CoordinateType.NaturalY, new NaturalY(Boundaries[boundaryId].BoundaryNodesCoordinates[positionInBoundary, 1]));
         }
-        private void AssignValueToBoundaryDOF(int positionInBoundary, int boundaryId, Node node)
+        private void AssignValueToBoundaryDOF(Node node)
         {
-            node.DegreesOfFreedom.Add(DegreeOfFreedomType.X, new X());
-            node.DegreesOfFreedom.Add(DegreeOfFreedomType.Y, new Y());
-            node.DegreesOfFreedom[DegreeOfFreedomType.X].Value = node.Coordinates[CoordinateType.NaturalX].Value;
-            node.DegreesOfFreedom[DegreeOfFreedomType.Y].Value = node.Coordinates[CoordinateType.NaturalY].Value;
+            node.DegreesOfFreedom.Add(DegreeOfFreedomType.X, new X(node.Coordinates[CoordinateType.NaturalX].Value));
+            node.DegreesOfFreedom.Add(DegreeOfFreedomType.Y, new Y(node.Coordinates[CoordinateType.NaturalY].Value));
         }
         private Node InitializeInternalNode(int positionInternal)
         {
             var node = new Node();
+            // node.Coordinates.Add(CoordinateType.NaturalX, new NaturalX(-1d));
+            // node.Coordinates.Add(CoordinateType.NaturalY, new NaturalY(-1d));
+            // node.DegreesOfFreedom.Add(DegreeOfFreedomType.X, new X(-1d));
+            // node.DegreesOfFreedom.Add(DegreeOfFreedomType.Y, new Y(-1d));
             node.DegreesOfFreedom.Add(DegreeOfFreedomType.X, new X());
             node.DegreesOfFreedom.Add(DegreeOfFreedomType.Y, new Y());
             node.Id.Internal = positionInternal;
             return node;
         }
-
 
         private void  AssignGlobalIds()
         {
