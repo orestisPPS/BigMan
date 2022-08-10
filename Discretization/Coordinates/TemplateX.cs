@@ -4,7 +4,12 @@ namespace Discretization
     {
         public TemplateX()
         {
-            this.Value = -1;
+            this.Type = "TemplateX";
+        }
+
+        public TemplateX(double value)
+        {
+            this.Value = value;
             this.Type = "TemplateX";
         }
     }

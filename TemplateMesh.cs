@@ -66,6 +66,7 @@ namespace Mesh
                     var node = Nodes[row, column];
                     node.Coordinates.Add(CoordinateType.TemplateX, new TemplateX(coord[0]));
                     node.Coordinates.Add(CoordinateType.TemplateY, new TemplateY(coord[1]));
+                    
                 }
             }
         }

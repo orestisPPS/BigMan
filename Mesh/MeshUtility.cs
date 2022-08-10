@@ -22,42 +22,17 @@
 
         }
 
-        // public static Node NeighbourFinder(Node node, string direction) 
-        // {
-        //     var result = new Node();
-
-        //     if      (direction == "N"  ) { result = node.hood["N"];}
-        //     else if (direction == "NN" ) { result = node.hood["N"].hood["N"];}
-        //     else if (direction == "NNN") { result = node.hood["N"].hood["N"];}
-            
-        //     else if (direction == "S"  ) { result = node.hood["S"];}
-        //     else if (direction == "SS" ) { result = node.hood["S"].hood["S"];}
-        //     else if (direction == "SSS") { result = node.hood["S"].hood["S"].hood["S"];}
-            
-        //     else if (direction == "W"  ) { result = node.hood["W"];}
-        //     else if (direction == "WW" ) { result = node.hood["W"].hood["W"];}
-        //     else if (direction == "WWW") { result = node.hood["W"].hood["W"].hood["W"];}
-            
-        //     else if (direction == "E"  ) { result = node.hood["E"];}
-        //     else if (direction == "EE" ) { result = node.hood["E"].hood["E"];}
-        //     else if (direction == "EEE") { result = node.hood["E"].hood["E"];}
-
-        //     return result;
-        // }
-
-        // public static void CalculateMetrix(Node[,] nodeMesh)
-        // {
-        //     var nnx = nodeMesh.GetLength(0);
-        //     var nny = nodeMesh.GetLength(1);
-
-        //     for (int i = 0; i < nnx; i++)
-        //     {
-        //         for (int j = 0; j < nny; j++)
-        //         {
-        //             nodeMesh[i, j].metrics.CalculateMetrics(nodeMesh[i, j]);
-        //         }
-        //     }
-        // }
+        public static bool NodeExists(int nodeId, Dictionary<int, Node> nodes)
+        {
+            if (nodes.ContainsKey(nodeId))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         
         public static void GnuplotBoundary(DomainBoundary[] domainBoundaries)
         {

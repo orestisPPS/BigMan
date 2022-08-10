@@ -1,7 +1,8 @@
 using Discretization;
+using Constitutive;
 namespace Mesh
 {
-    public class DomainBoundary
+    public class BoundaryCondition
     {
 
         /// <summary>
@@ -11,10 +12,10 @@ namespace Mesh
         public int Id {get;}
 
         /// <summary>
-        /// Contains the cooridinates of the boundary nodes.
+        /// A dictionary containing the boundary 
         /// </summary>
         /// <value></value>
-        public double[,] BoundaryNodesCoordinates {get;}
+        public Dictionary<DegreeOfFreedomType, Func <double, double, double> > BoundaryConditionValues {get;}
 
         public DomainBoundary(int id, double[,] boundaryNodesCoordinates)
         {

@@ -4,7 +4,6 @@ namespace Discretization
     {
         public NaturalY()
         {
-            this.Value = -1;
             this.Type = "NaturalY";
         }
 
