@@ -114,7 +114,7 @@ namespace Mesh
         /// <param name="tiltAngle">the tilt angle of the mesh cells [DEGREES]</param>
         /// <returns> returns 4 arrays with the boundary nodes</returns>
         
-        public static Dictionary<int, BoundaryCondition[]> ParalleloGram(int nnx, int nny, double hx, double hy, double rotAngle, double shearX, double shearY)
+        public static Dictionary<string, BoundaryCondition> ParalleloGram(int nnx, int nny, double hx, double hy, double rotAngle, double shearX, double shearY)
         {
             var rot = utilitiez.Calculators.DegreesToRad(rotAngle);
             var ShearX = utilitiez.Calculators.DegreesToRad(shearX);

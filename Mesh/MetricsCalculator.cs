@@ -1,36 +1,34 @@
 using Discretization;
 using prizaLinearAlgebra;
+using utility;
 namespace Mesh
 {
     public class MetricsCalculator
     {
         /// <summary>
-        /// A dictionary mapping the nodes of the domain. The key is the global id of the node and the value is the node.
+        /// A 2d Node Array containing all the nodes of the domain.
         /// </summary>
         /// <value></value>
-        public Dictionary<int, Node> Nodes {get;}
+        private Node[,] Nodes { get;}
 
-        public int nnx {get;}
-        public int nny {get;}
+        private int nnx => Nodes.GetLength(0);
+
+        private int nny => Nodes.GetLength(1);
 
         /// <summary>
-        /// A Dictionary mapping the metrics of the mesh with node global id as key and the node metrics as value
+        /// A dictionary with the metrics of each mesh node as value and the node as key.
         /// </summary>
-        /// <typeparam name="int">Global Id</typeparam>
-        /// <typeparam name="NodeMetrics">Metrics</typeparam>
-        /// <returns></returns>
-        public Dictionary<int, NodeMetrics> MeshMetrics {get; internal set;} = new Dictionary<int, NodeMetrics>();
+        public Dictionary<Node, NodeMetrics> MeshMetrics {get; internal set;} = new Dictionary<Node, NodeMetrics>();
 
-        public MetricsCalculator(Dictionary<int, Node> nodeDictionary, int nnx, int nny)
+        public MetricsCalculator(Node[,] nodes)
         {
-            this.Nodes = nodeDictionary;
-            this.nnx = nnx;
-            this.nny = nny;
+            this.Nodes = nodes;
+            CalculateMeshMetrics();
         }
 
         private void CalculateMeshMetrics()
         {
-            foreach (var node in Nodes.Values)
+            foreach (var node in Nodes)
             {
                 var boundaryId = node.Id.Boundary;
                 var metrics = new NodeMetrics();
@@ -78,13 +76,13 @@ namespace Mesh
                     
                     default:
                         throw new Exception("The node is not in the domain.");
+                        
                 }
-
-
-                    // metrics.covariantTensor[0, 0] = utilitiez.Calculators.vectorDotProduct(covariants1, covariants1);
-                    // metrics.covariantTensor[0, 1] = utilitiez.Calculators.vectorDotProduct(covariants1, covariants2);
-                    // metrics.covariantTensor[1, 0] = utilitiez.Calculators.vectorDotProduct(covariants2, covariants1);
-                    // metrics.covariantTensor[1, 1] = utilitiez.Calculators.vectorDotProduct(covariants2, covariants2);
+                
+                    metrics.covariantTensor[0, 0] = utilitiez.Calculators.vectorDotProduct(metrics.covariants1, metrics.covariants1);
+                    metrics.covariantTensor[0, 1] = utilitiez.Calculators.vectorDotProduct(metrics.covariants1, metrics.covariants2);
+                    metrics.covariantTensor[1, 0] = utilitiez.Calculators.vectorDotProduct(metrics.covariants2, metrics.covariants1);
+                    metrics.covariantTensor[1, 1] = utilitiez.Calculators.vectorDotProduct(metrics.covariants2, metrics.covariants2);
         
                     metrics.contravariantTensor[0, 0] = utilitiez.Calculators.vectorDotProduct(metrics.contravariants1, metrics.contravariants1);
                     metrics.contravariantTensor[1, 0] = utilitiez.Calculators.vectorDotProduct(metrics.contravariants1, metrics.contravariants2);
@@ -93,12 +91,11 @@ namespace Mesh
         
                     metrics.Jacobian = metrics.covariants1[0] * metrics.covariants2[1] - metrics.covariants1[1] * metrics.covariants2[0];
 
-                    NodeMetrics.Add(node.Id.Global, nodeMetrics);
-
+                    MeshMetrics.Add(node, metrics);
             }
 
                 
-            }
+        }
         
 
         private NodeMetrics CalculateBottomLeftCornerNodeMetrics(Node node)
@@ -430,10 +427,5 @@ namespace Mesh
 
         }
 
-
-
-
-        }
-    
     }
 }  

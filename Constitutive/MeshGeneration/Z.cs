@@ -2,7 +2,7 @@ namespace Constitutive
 {
     public class Z : Position
     {
-        public string Type => "Z";
+        public override DegreeOfFreedomType Type => DegreeOfFreedomType.Z;
         public Z()
         {
             Value = -1d;

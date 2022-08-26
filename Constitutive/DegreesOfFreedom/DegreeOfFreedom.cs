@@ -6,9 +6,9 @@ namespace Constitutive
         Y,
         Z
     }
-    public class DegreeOfFreedom : IDegreeOfFreedom
+    public abstract class DegreeOfFreedom : IDegreeOfFreedom
     {
-        public double Value {get; set;}
-        public string Type {get;}
+        public virtual double Value {get; set;}
+        public virtual DegreeOfFreedomType Type {get;}
     }
 }

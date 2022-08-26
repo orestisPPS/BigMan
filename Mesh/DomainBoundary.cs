@@ -1,27 +1,46 @@
 using Discretization;
-using Constitutive;
-namespace Mesh
+
+namespace BoundaryConditions
 {
-    public class BoundaryCondition
+    public class DomainBoundary
     {
+        public int Id { get; }
+        
+        public int NumberOfBoundaryNodes { get; internal set;}
+
+        public BoundaryCondition BoundaryCondition {get;}
+        
+        public List <BoundaryCondition> BoundaryConditions {get; set; } = new List <BoundaryCondition>();
+
 
         /// <summary>
-        /// 0 -> bottom, 1 -> right, 2 -> top, 3 -> left
+        /// This constructor is used when the boundary condition function is applied to all nodes of the boundary.
         /// </summary>
-        /// <value></value>
-        public int Id {get;}
-
-        /// <summary>
-        /// A dictionary containing the boundary 
-        /// </summary>
-        /// <value></value>
-        public Dictionary<DegreeOfFreedomType, Func <double, double, double> > BoundaryConditionValues {get;}
-
-        public DomainBoundary(int id, double[,] boundaryNodesCoordinates)
+        /// <param name="numberOfBoundaryNodes"></param>
+        /// <param name="boundaryCondition"></param>
+        public DomainBoundary(int id, int numberOfBoundaryNodes, BoundaryCondition boundaryCondition)
         {
             this.Id = id;
-            this.BoundaryNodesCoordinates = boundaryNodesCoordinates;
-        }
-    }
-}
+            this.NumberOfBoundaryNodes = numberOfBoundaryNodes;
+            this.BoundaryCondition = boundaryCondition;
 
+            for (int i = 0; i < numberOfBoundaryNodes; i++)
+            {
+                BoundaryConditions.Add(BoundaryCondition);
+            }
+        }
+
+
+        /// <summary>
+        /// This constructor is used when the boundary condition function varies with the node.
+        /// </summary>
+        /// <param name="boundaryConditions"></param>
+        public DomainBoundary(int id, List <BoundaryCondition> boundaryConditions)
+        {
+            this.Id = id;
+            this.NumberOfBoundaryNodes = boundaryConditions.Count;
+            this.BoundaryConditions = boundaryConditions;
+        }
+
+    }   
+}

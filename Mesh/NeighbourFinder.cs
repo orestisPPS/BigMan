@@ -76,7 +76,7 @@ namespace Mesh
 
         public void NorthWest()
         {
-            var exists = MeshUtility.NodeExists(node.Id.Global - 1 - nnx, Nodes);
+            var exists = MeshUtility.NodeExists(node.Id.Global + nnx - 1, Nodes);
             if (exists == true)
             {
                 NodeHood.Add("NW", Nodes[node.Id.Global + nnx - 1]);
@@ -85,7 +85,7 @@ namespace Mesh
 
         public void North()
         {
-            var exists = MeshUtility.NodeExists(node.Id.Global - nnx, Nodes);
+            var exists = MeshUtility.NodeExists(node.Id.Global + nnx, Nodes);
             if (exists == true)
             {
                 NodeHood.Add("N", Nodes[node.Id.Global + nnx]);
@@ -93,7 +93,7 @@ namespace Mesh
         }
         public void NorthEast()
         {
-            var exists = MeshUtility.NodeExists(node.Id.Global - 1 - nnx + 1, Nodes);
+            var exists = MeshUtility.NodeExists(node.Id.Global + nnx + 1, Nodes);
             if (exists == true)
             {
                 NodeHood.Add("NE", Nodes[node.Id.Global + nnx + 1]);
