@@ -24,7 +24,7 @@ internal class Program
         var mathematicalProblem = new BoundaryValueProblem(equation, new Dictionary<string, BoundaryCondition>(), DegreesOfFreedom);
 
         var solutionMethod = new FiniteDifferenceMethod(equation, nodes);
-        var meshGenerationProblem =  new Problem(domainNodes, meshGenerationEquation,
-                                                 meshBoundaries.BoundaryConditions, new FiniteDifferenceMethod(), DegreesOfFreedom);
+        var meshGenerationProblem =  new Problem(domainNodes, mathematicalProblem,
+                                                 meshBoundaries.BoundaryConditions, solutionMethod, DegreesOfFreedom);
     }
 }
