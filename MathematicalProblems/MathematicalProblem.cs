@@ -17,13 +17,9 @@ namespace MathematicalProblems
 
         public virtual List<DifferentialEquation> Equation { get; }
 
-        public virtual List<Dictionary<string, BoundaryCondition>> BoundaryConditions { get; }
-
-        //public virtual Dictionary<string, InitialCondition> InitialConditions { get; }
-
         public virtual List<DegreeOfFreedom> DegreeOfFreedom { get; }
 
-
+        public virtual bool IsTransient { get; }
     }
 
 }

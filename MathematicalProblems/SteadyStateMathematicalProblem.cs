@@ -4,7 +4,7 @@ using Constitutive;
 using BoundaryConditions;
 namespace MathematicalProblems
 {
-    public class BoundaryValueProblem : MathematicalProblem
+    public class SteadyStateMathematicalProblem : MathematicalProblem
     {
         public override MathematicalProblemType Type => MathematicalProblemType.BoundaryValueProblem;
         
@@ -14,9 +14,9 @@ namespace MathematicalProblems
 
         public override List<DegreeOfFreedom> DegreeOfFreedom { get; }
 
-        public BoundaryValueProblem(List<DifferentialEquation> equation,
-                                    List<Dictionary<string, BoundaryCondition>> boundaryConditions,
-                                    List<DegreeOfFreedom> degreesOfFreedom)
+        public SteadyStateMathematicalProblem(List<DifferentialEquation> equation,
+                                              List<Dictionary<string, BoundaryCondition>> boundaryConditions,
+                                              List<DegreeOfFreedom> degreesOfFreedom)
         {
             this.Equation = equation;
             this.BoundaryConditions = boundaryConditions;
