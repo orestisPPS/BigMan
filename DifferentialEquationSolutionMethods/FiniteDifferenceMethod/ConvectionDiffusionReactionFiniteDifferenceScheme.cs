@@ -1,30 +1,34 @@
 using DifferentialEquations;
 using Discretization;
+using MathematicalProblems;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace DifferentialEquationSolutionMethods
 {
-    public class ConvectionDiffusionReactionFiniteDifferenceScheme : FiniteDifferenceScheme
+    public class ConvectionDiffusionReactionFiniteDifferenceScheme : INumericalScheme
     {
-        public override DifferentialEquation Equation { get; }
-        public override Node[,] Nodes { get; }
-        public readonly double[,] Matrix
-        public readonly double[] Vector 
+        public Node[,] Nodes { get; }
+        public MathematicalProblem Problem { get; }
+        public double[,] Matrix => CreateMatrix(); 
+        public double[] Vector => CreateVector();
 
-        public ConvectionDiffusionReactionFiniteDifferenceScheme(DifferentialEquation equation, Node[,] nodes )
+        public ConvectionDiffusionReactionFiniteDifferenceScheme(Node[,] nodes, MathematicalProblem problem)
         {
-            Equation = equation;
-            Nodes = nodes;
+            this.Nodes = nodes;
+            this.Problem = problem;
         }
-
-        public override void CreateMatrix()
+        
+        public double[,] CreateMatrix()
         {
             throw new System.NotImplementedException();
         }
-        public override void CreateVector()
+
+        public double[] CreateVector()
         {
             throw new System.NotImplementedException();
         }
+
     }
+
 }

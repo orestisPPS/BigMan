@@ -9,7 +9,7 @@ namespace MathematicalProblems
     {
         public override MathematicalProblemType Type => MathematicalProblemType.BoundaryValueProblem;
         
-        public override List<DifferentialEquation> Equation { get; }
+        public override DifferentialEquation Equation { get; }
 
         public List<Dictionary<string, BoundaryCondition>> BoundaryConditions { get; }
 
@@ -19,7 +19,7 @@ namespace MathematicalProblems
 
         public override bool IsTransient => true;
 
-        public TransientMathematicalProblem(List<DifferentialEquation> equation,
+        public TransientMathematicalProblem(DifferentialEquation equation,
                                             List<Dictionary<string, BoundaryCondition>> boundaryConditions,
                                             List<Dictionary<string, InitialCondition>> initialConditions,
                                             List<DegreeOfFreedom> degreesOfFreedom)

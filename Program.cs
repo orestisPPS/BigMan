@@ -23,8 +23,6 @@ internal class Program
         DegreesOfFreedom.Add(new Y());
         var mathematicalProblem = new SteadyStateMathematicalProblem(equation, new Dictionary<string, BoundaryCondition>(), DegreesOfFreedom);
 
-        var solutionMethod = new FiniteDifferenceMethod(equation, nodes);
-        var meshGenerationProblem =  new SteadyStateProblem(domainNodes, mathematicalProblem,
-                                                 meshBoundaries.BoundaryConditions, solutionMethod, DegreesOfFreedom);
+        var meshGenerationProblem =  new SteadyStateProblem(domainNodes, mathematicalProblem, solutionMethod, DegreesOfFreedom);
     }
 }

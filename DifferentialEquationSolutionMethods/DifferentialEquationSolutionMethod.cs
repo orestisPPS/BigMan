@@ -13,7 +13,7 @@ namespace DifferentialEquationSolutionMethods
 
     //     public virtual MathematicalProblem MathematicalProblem { get; }
     // }
-    public interface DifferentialEquationSolutionMethod
+    public interface IDifferentialEquationSolutionMethod
     {
         public DifferentialEquationsSolutionMethodType Type { get; }
 

@@ -6,36 +6,29 @@ using System.Threading.Tasks;
 
 namespace DifferentialEquationSolutionMethods
 {
-    public class FiniteDifferenceMethod : DifferentialEquationSolutionMethod
+    public class FiniteDifferenceMethod : IDifferentialEquationSolutionMethod
     {
         public Node[,] Nodes { get; }
 
         //public override MathematicalProblem MathematicalProblem { get; }
         public MathematicalProblem MathematicalProblem { get; }
         
-        //public override DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod;
         public DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod;
-
-                        
-        private FiniteDifferenceScheme Scheme;
+ 
+        private INumericalScheme Scheme => SchemeSelector();
 
         public FiniteDifferenceMethod(Node[,] domainNodes,  MathematicalProblem mathematicalProblem)
         {
             this.Nodes = domainNodes;
             this.MathematicalProblem = mathematicalProblem;
-            this.Scheme = new FiniteDifferenceScheme(domainNodes, mathematicalProblem);
-            SchemeSelector();
-
         }
 
-
-        public void SchemeSelector()
+        public INumericalScheme SchemeSelector()
         {
-            switch (MathematicalProblem.Equation.)
+            switch (MathematicalProblem.Equation.DifferentialEquationType)
             {
                 case DifferentialEquationType.ConvectionDiffusionReaction:
-                    Scheme = new ConvectionDiffusionReactionFiniteDifferenceScheme(MathematicalProblem.Equation, Nodes);
-                    break;
+                    return new ConvectionDiffusionReactionFiniteDifferenceScheme(Nodes, MathematicalProblem);
                 default:
                     throw new System.NotImplementedException();
             }

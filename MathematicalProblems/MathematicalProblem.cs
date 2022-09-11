@@ -15,7 +15,7 @@ namespace MathematicalProblems
     {
         public virtual MathematicalProblemType Type { get; }
 
-        public virtual List<DifferentialEquation> Equation { get; }
+        public virtual DifferentialEquation Equation { get; }
 
         public virtual List<DegreeOfFreedom> DegreeOfFreedom { get; }
 

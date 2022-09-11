@@ -8,7 +8,7 @@ namespace MathematicalProblems
     {
         public override MathematicalProblemType Type => MathematicalProblemType.BoundaryValueProblem;
         
-        public override List<DifferentialEquation> Equation { get; }
+        public override DifferentialEquation Equation { get; }
 
         public List<Dictionary<string, BoundaryCondition>> BoundaryConditions { get; }
 
@@ -16,7 +16,7 @@ namespace MathematicalProblems
         
         public override bool IsTransient => false;
 
-        public SteadyStateMathematicalProblem(List<DifferentialEquation> equation,
+        public SteadyStateMathematicalProblem(DifferentialEquation equation,
                                               List<Dictionary<string, BoundaryCondition>> boundaryConditions,
                                               List<DegreeOfFreedom> degreesOfFreedom)
         {

@@ -14,9 +14,9 @@ public class Problem
 
     public DifferentialEquationsSolutionMethodType SolutionMethodType { get; }
 
-    public DifferentialEquationSolutionMethod DifferentialEquationSolutionMethod { get; internal set; } 
+    public IDifferentialEquationSolutionMethod DifferentialEquationSolutionMethod { get; internal set; } 
 
-    public Problem(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, DifferentialEquationSolutionMethod solutionMethod)
+    public Problem(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, IDifferentialEquationSolutionMethod solutionMethod)
     {
         this.Nodes = nodes;
         this.MathProblem = mathProblem;

@@ -14,7 +14,7 @@ public class SteadyStateProblem
 
     public DifferentialEquationsSolutionMethodType SolutionMethodType { get; }
 
-    public DifferentialEquationSolutionMethod DifferentialEquationSolutionMethod => AssignSolutionMethod();
+    public IDifferentialEquationSolutionMethod SolutionMethod => AssignSolutionMethod();
 
     public SteadyStateProblem(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, DifferentialEquationsSolutionMethodType solutionMethod, Solver solver)
     {
@@ -23,9 +23,10 @@ public class SteadyStateProblem
         this.SolutionMethodType = solutionMethod;
         AssignDegreesOfFreedomToNodes();
         AssignBoundaryValuesToBoundaryNodes();
+        
     }
 
-    private DifferentialEquationSolutionMethod AssignSolutionMethod()
+    private IDifferentialEquationSolutionMethod AssignSolutionMethod()
     {
         switch (SolutionMethodType)
         {
