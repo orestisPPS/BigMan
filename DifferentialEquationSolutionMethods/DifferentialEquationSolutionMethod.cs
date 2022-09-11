@@ -17,7 +17,7 @@ namespace DifferentialEquationSolutionMethods
     {
         public DifferentialEquationsSolutionMethodType Type { get; }
 
-        public MathematicalProblem MathematicalProblem { get; }
+        public IMathematicalProblem MathematicalProblem { get; }
 
         public INumericalScheme Scheme { get; }
     }

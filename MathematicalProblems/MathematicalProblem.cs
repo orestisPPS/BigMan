@@ -11,15 +11,15 @@ namespace MathematicalProblems
         InitialValueProblem,
         BoundaryInitialValueProblem,
     }
-    public abstract class MathematicalProblem
+    public interface  IMathematicalProblem
     {
-        public virtual MathematicalProblemType Type { get; }
+        public MathematicalProblemType Type { get; }
 
-        public virtual DifferentialEquation Equation { get; }
+        public DifferentialEquation Equation { get; }
 
-        public virtual List<DegreeOfFreedom> DegreeOfFreedom { get; }
+        public List<DegreeOfFreedom> DegreeOfFreedom { get; }
 
-        public virtual bool IsTransient { get; }
+        public bool IsTransient { get; }
     }
 
 }

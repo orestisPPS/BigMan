@@ -26,10 +26,20 @@ public class SteadyStateSimulation : ISteadyStateSimulation
         this.SolutionMethodType = solutionMethod;
         SolutionMethod = AssignSolutionMethod();
         AssignDegreesOfFreedomToNodes();
-        AssignBoundaryValuesToBoundaryNodes();
+        //AssignBoundaryValuesToBoundaryNodes();
+        
         
     }
-
+    private void AssignDegreesOfFreedomToNodes()
+    {
+        foreach (var node in Nodes)
+        {
+            foreach (var degreeOfFreedom in SolutionMethod.MathematicalProblem.DegreeOfFreedom)
+            {
+                node.DegreesOfFreedom.Add(degreeOfFreedom.Type, degreeOfFreedom);
+            }
+        }
+    }
     private IDifferentialEquationSolutionMethod AssignSolutionMethod()
     {
         switch (SolutionMethodType)
@@ -43,29 +53,7 @@ public class SteadyStateSimulation : ISteadyStateSimulation
         }
     }
 
-    public void AssignDegreesOfFreedomToNodes()
-    {
-        foreach (var node in Nodes)
-        {
-            foreach (var degreeOfFreedom in DegreesOfFreedom)
-            {
-                node.DegreesOfFreedom.Add(degreeOfFreedom.Type, degreeOfFreedom);
-            }
-        }
-    }
-    //TODO - implement this method
-    public void AssignBoundaryValuesToBoundaryNodes()
-    {
-        foreach (var boundaryCondition in BoundaryConditions)
-        {
-            foreach (var node in boundaryCondition.Value.Nodes)
-            {
-                node.BoundaryCondition = boundaryCondition.Value;
-            }
-        }
-    }
-
-    public void Solve()
+    public void InitiateAnalysis()
     {
 
     } 

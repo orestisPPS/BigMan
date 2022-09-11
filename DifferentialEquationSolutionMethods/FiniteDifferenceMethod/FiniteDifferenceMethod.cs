@@ -11,14 +11,14 @@ namespace DifferentialEquationSolutionMethods
         public Node[,] Nodes { get; }
 
         //public override MathematicalProblem MathematicalProblem { get; }
-        public MathematicalProblem MathematicalProblem { get; }
+        public IMathematicalProblem MathematicalProblem { get; }
         
         public DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod;
  
         public INumericalScheme Scheme { get; }
 
         
-        public FiniteDifferenceMethod(Node[,] domainNodes,  MathematicalProblem mathematicalProblem)
+        public FiniteDifferenceMethod(Node[,] domainNodes,  IMathematicalProblem mathematicalProblem)
         {
             this.Nodes = domainNodes;
             this.MathematicalProblem = mathematicalProblem;

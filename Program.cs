@@ -5,6 +5,7 @@ using Constitutive;
 using BoundaryConditions;
 using DifferentialEquationSolutionMethods;
 using MathematicalProblems;
+using Simulations;
 using utility;
 internal class Program
 {
@@ -22,7 +23,6 @@ internal class Program
         DegreesOfFreedom.Add(new X());
         DegreesOfFreedom.Add(new Y());
         var mathematicalProblem = new SteadyStateMathematicalProblem(equation, new Dictionary<string, BoundaryCondition>(), DegreesOfFreedom);
-        var sim = new Simulations(domainNodes, mathematicalProblem, DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod);
         var meshGenerationProblem =  new SteadyStateProblem(domainNodes, mathematicalProblem, solutionMethod, DegreesOfFreedom);
         meshGenerationProblem.SolutionMethod.Scheme.
     }
