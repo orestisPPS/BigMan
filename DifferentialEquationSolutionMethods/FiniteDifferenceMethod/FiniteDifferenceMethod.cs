@@ -13,19 +13,18 @@ namespace DifferentialEquationSolutionMethods
         //public override MathematicalProblem MathematicalProblem { get; }
         public IMathematicalProblem MathematicalProblem { get; }
         
-        public DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod;
+        public DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferences;
  
-        public INumericalScheme Scheme { get; }
+        public INumericalScheme Scheme => SchemeSelector();
 
         
         public FiniteDifferenceMethod(Node[,] domainNodes,  IMathematicalProblem mathematicalProblem)
         {
             this.Nodes = domainNodes;
             this.MathematicalProblem = mathematicalProblem;
-            this.Scheme = SchemeSelector();
         }
 
-        public INumericalScheme SchemeSelector()
+        private INumericalScheme SchemeSelector()
         {
             switch (MathematicalProblem.Equation.DifferentialEquationType)
             {

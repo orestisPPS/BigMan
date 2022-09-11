@@ -1,6 +1,7 @@
 using DifferentialEquations;
 using Discretization;
 using MathematicalProblems;
+using prizaLinearAlgebra;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,19 +10,25 @@ namespace DifferentialEquationSolutionMethods
     public class ConvectionDiffusionReactionFiniteDifferenceScheme : INumericalScheme
     {
         public Node[,] Nodes { get; }
+
         public IMathematicalProblem Problem { get; }
-        public double[,] Matrix {get;   internal set;} 
-        public double[] Vector {get; internal set;}
+
+        public LinearSystem LinearSystem => CreateLinearSystem();
 
         public ConvectionDiffusionReactionFiniteDifferenceScheme(Node[,] nodes, IMathematicalProblem problem)
         {
             this.Nodes = nodes;
             this.Problem = problem;
-            this.Matrix = CreateMatrix();
-            this.Vector = CreateVector();
+        }
+        
+        private LinearSystem CreateLinearSystem()
+        {
+            var matrix = CreateMatrix();
+            var vector = CreateVector();
+            return new LinearSystem(matrix, vector);
         }
 
-        public double[,] CreateMatrix()
+        private double[,] CreateMatrix()
         {
             // TODO - Create Linear System
             switch (Problem.Equation.IsTransient)
@@ -37,7 +44,7 @@ namespace DifferentialEquationSolutionMethods
             }
         }
 
-        public double[] CreateVector()
+        private double[] CreateVector()
         {
             // TODO - Create Linear System
             switch (Problem.Equation.IsTransient)
@@ -54,24 +61,24 @@ namespace DifferentialEquationSolutionMethods
         }
 
 
-        public double[,] CreateSteadyStateMatrix()
+        private double[,] CreateSteadyStateMatrix()
         {
             // TODO - Create Matrix
             return new double[1, 1];
         }
 
-        public double[] CreateSteadyStateVector()
+        private double[] CreateSteadyStateVector()
         {
             // TODO - Create Vector
             return new double[1];
         }
 
-        public double[,] CreateTransientMatix()
+        private double[,] CreateTransientMatix()
         {
             // TODO - Create Matrix
             return new double[1, 1];        }
 
-        public double[] CreateTransientVector()
+        private double[] CreateTransientVector()
         {
             // TODO - Create Vector
             return new double[1];

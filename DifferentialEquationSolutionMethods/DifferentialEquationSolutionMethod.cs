@@ -4,15 +4,10 @@ namespace DifferentialEquationSolutionMethods
 {
     public enum DifferentialEquationsSolutionMethodType
     {
-        FiniteDifferenceMethod,
-        FiniteElementsMethod
+        FiniteDifferences,
+        FiniteElements
     }
-    // public abstract class DifferentialEquationSolutionMethod
-    // {
-    //     public virtual DifferentialEquationsSolutionMethodType Type { get; }
 
-    //     public virtual MathematicalProblem MathematicalProblem { get; }
-    // }
     public interface IDifferentialEquationSolutionMethod
     {
         public DifferentialEquationsSolutionMethodType Type { get; }

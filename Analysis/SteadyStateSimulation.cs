@@ -17,15 +17,16 @@ public class SteadyStateSimulation : ISteadyStateSimulation
 
     public DifferentialEquationsSolutionMethodType SolutionMethodType { get; }
 
-    public IDifferentialEquationSolutionMethod SolutionMethod { get; }
+    public IDifferentialEquationSolutionMethod SolutionMethod { get; internal set; }
 
-    public SteadyStateSimulation(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, DifferentialEquationsSolutionMethodType solutionMethod, Solver solver)
+    public SteadyStateSimulation(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, DifferentialEquationsSolutionMethodType solutionMethodType)
     {
         this.Nodes = nodes;
         this.MathProblem = mathProblem;
-        this.SolutionMethodType = solutionMethod;
-        SolutionMethod = AssignSolutionMethod();
+        this.SolutionMethodType = solutionMethodType;
         AssignDegreesOfFreedomToNodes();
+        this.SolutionMethod = AssignSolutionMethod();
+        var linearSystem = SolutionMethod.Scheme.LinearSystem;
         //AssignBoundaryValuesToBoundaryNodes();
         
         
@@ -44,7 +45,7 @@ public class SteadyStateSimulation : ISteadyStateSimulation
     {
         switch (SolutionMethodType)
         {
-            case DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod:
+            case DifferentialEquationsSolutionMethodType.FiniteDifferences:
                 return new FiniteDifferenceMethod(Nodes, MathProblem);
             //case DifferentialEquationsSolutionMethodType.FiniteElementsMethod:
                 //return new FiniteElementsMethod(Nodes, MathProblem);
