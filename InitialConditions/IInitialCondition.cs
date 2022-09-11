@@ -1,8 +1,8 @@
-namespace BoundaryConditions
+namespace InitialConditions
 {
-    public interface IBoundaryCondition
+    public interface IInitialCondition
     {
-        public string Type { get; set; }
+        public string Type { get;}
     
         public Func<double, double, double> Value { get; set; }
 

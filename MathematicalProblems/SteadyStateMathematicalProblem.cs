@@ -10,9 +10,11 @@ namespace MathematicalProblems
         
         public override List<DifferentialEquation> Equation { get; }
 
-        public override List<Dictionary<string, BoundaryCondition>> BoundaryConditions { get; }
+        public List<Dictionary<string, BoundaryCondition>> BoundaryConditions { get; }
 
         public override List<DegreeOfFreedom> DegreeOfFreedom { get; }
+        
+        public override bool IsTransient => false;
 
         public SteadyStateMathematicalProblem(List<DifferentialEquation> equation,
                                               List<Dictionary<string, BoundaryCondition>> boundaryConditions,

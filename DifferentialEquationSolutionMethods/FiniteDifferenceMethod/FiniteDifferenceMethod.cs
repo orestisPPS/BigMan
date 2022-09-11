@@ -8,25 +8,30 @@ namespace DifferentialEquationSolutionMethods
 {
     public class FiniteDifferenceMethod : DifferentialEquationSolutionMethod
     {
-        public override DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod;
-        
         public Node[,] Nodes { get; }
-        
-        public override BoundaryValueProblem MathematicalProblem { get; }
-        
-        public FiniteDifferenceScheme Scheme { get;  internal set; }
 
-        public FiniteDifferenceMethod(Node[,] domainNodes, BoundaryValueProblem mathematicalProblem)
+        //public override MathematicalProblem MathematicalProblem { get; }
+        public MathematicalProblem MathematicalProblem { get; }
+        
+        //public override DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod;
+        public DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod;
+
+                        
+        private FiniteDifferenceScheme Scheme;
+
+        public FiniteDifferenceMethod(Node[,] domainNodes,  MathematicalProblem mathematicalProblem)
         {
             this.Nodes = domainNodes;
             this.MathematicalProblem = mathematicalProblem;
+            this.Scheme = new FiniteDifferenceScheme(domainNodes, mathematicalProblem);
             SchemeSelector();
+
         }
 
 
-        private void SchemeSelector()
+        public void SchemeSelector()
         {
-            switch (MathematicalProblem.Equation.DifferentialEquationType)
+            switch (MathematicalProblem.Equation.)
             {
                 case DifferentialEquationType.ConvectionDiffusionReaction:
                     Scheme = new ConvectionDiffusionReactionFiniteDifferenceScheme(MathematicalProblem.Equation, Nodes);

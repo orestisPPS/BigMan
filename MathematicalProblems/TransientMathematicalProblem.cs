@@ -30,13 +30,13 @@ namespace MathematicalProblems
             this.DegreeOfFreedom = degreesOfFreedom;
         }
 
-        public TransientMathematicalProblem(List<DifferentialEquation> equation,
-                                            List<Dictionary<string, InitialCondition>> initialConditions,
-                                            List<DegreeOfFreedom> degreesOfFreedom)
-        {
-            this.Equation = equation;
-            this.InitialConditions = initialConditions;
-            this.DegreeOfFreedom = degreesOfFreedom;
-        }
+        // public TransientMathematicalProblem(List<DifferentialEquation> equation,
+        //                                     List<Dictionary<string, InitialCondition>> initialConditions,
+        //                                     List<DegreeOfFreedom> degreesOfFreedom)
+        // {
+        //     this.Equation = equation;
+        //     this.InitialConditions = initialConditions;
+        //     this.DegreeOfFreedom = degreesOfFreedom;
+        // }
     }
 }

@@ -21,10 +21,10 @@ internal class Program
         var DegreesOfFreedom = new List<DegreeOfFreedom>();
         DegreesOfFreedom.Add(new X());
         DegreesOfFreedom.Add(new Y());
-        var mathematicalProblem = new BoundaryValueProblem(equation, new Dictionary<string, BoundaryCondition>(), DegreesOfFreedom);
+        var mathematicalProblem = new SteadyStateMathematicalProblem(equation, new Dictionary<string, BoundaryCondition>(), DegreesOfFreedom);
 
         var solutionMethod = new FiniteDifferenceMethod(equation, nodes);
-        var meshGenerationProblem =  new Problem(domainNodes, mathematicalProblem,
+        var meshGenerationProblem =  new SteadyStateProblem(domainNodes, mathematicalProblem,
                                                  meshBoundaries.BoundaryConditions, solutionMethod, DegreesOfFreedom);
     }
 }

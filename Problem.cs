@@ -10,39 +10,56 @@ public class Problem
 {
     public Node [,] Nodes { get; }
 
-    public BoundaryValueProblem BoundaryValueProblem { get; }
+    public SteadyStateMathematicalProblem MathProblem { get; }
 
     public DifferentialEquationsSolutionMethodType SolutionMethodType { get; }
 
     public DifferentialEquationSolutionMethod DifferentialEquationSolutionMethod { get; internal set; } 
 
-    public DifferentialEquation Equation { get; }
-
-
-    public Problem(Node[,] nodes, BoundaryValueProblem mathProblem, DifferentialEquationsSolutionMethodType SolutionMethod)
+    public Problem(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, DifferentialEquationSolutionMethod solutionMethod)
     {
         this.Nodes = nodes;
-        this.BoundaryValueProblem = mathProblem;
-        this.SolutionMethodType = SolutionMethod;
+        this.MathProblem = mathProblem;
+        MathProblem.;
+        this.SolutionMethodType = solutionMethod;
         ChooseBoundaryProblemSolutionMethod();
         AssignDegreesOfFreedomToNodes();
         AssignBoundaryValuesToBoundaryNodes();
     }
 
-    private void ChooseBoundaryProblemSolutionMethod()
-    {
-        switch (SolutionMethodType)
-        {
-            case DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod:
-                DifferentialEquationSolutionMethod = new FiniteDifferenceMethod(Nodes, BoundaryValueProblem);
-                break;
-            case DifferentialEquationsSolutionMethodType.FiniteElementsMethod:
-                //DifferentialEquationSolutionMethod = new FiniteElementsMethod(Nodes, MathProblem);
-                break;
-            default:
-                throw new System.NotImplementedException();
-        }
-    }
+    // private DifferentialEquationSolutionMethod ChooseBoundaryProblemSolutionMethod()
+    // {
+    //     switch (SolutionMethodType)
+    //     {
+    //         case DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod:
+    //             switch (MathProblem.IsTransient)
+    //             {
+    //                 case true:
+    //                     DifferentialEquationSolutionMethod = new FiniteDifferenceMethod(Nodes, MathProblem);
+    //                     break;
+    //                 case false:
+    //                     DifferentialEquationSolutionMethod = new FiniteDifferenceMethod(Nodes, MathProblem);
+    //                     break;
+    //                 default:
+    //                     throw new System.NotImplementedException();
+    //             }
+    //             {
+    //                 case DifferentialEquationType.ConvectionDiffusionReaction:
+    //                     DifferentialEquationSolutionMethod = new FiniteDifferenceMethod(Nodes, MathProblem);
+    //                     break;
+    //                 default:
+    //                     throw new System.NotImplementedException();
+    //             }
+    //             return new FiniteDifferenceMethod(Nodes, BoundaryValueProblem);
+    //             break;
+    //         //case DifferentialEquationsSolutionMethodType.FiniteElementsMethod:
+    //             //return new FiniteElementsMethod(Nodes, MathProblem);
+    //             //break;
+    //         default:
+    //             throw new Exception("Solution method not implemented");
+    //             return null;
+    //     }
+    // }
 
     public void AssignDegreesOfFreedomToNodes()
     {

@@ -9,8 +9,8 @@ namespace DifferentialEquationSolutionMethods
     {
         public override DifferentialEquation Equation { get; }
         public override Node[,] Nodes { get; }
-        public override double[,] Matrix { get; internal set; }
-        public override double[] Vector { get; internal set; }
+        public readonly double[,] Matrix
+        public readonly double[] Vector 
 
         public ConvectionDiffusionReactionFiniteDifferenceScheme(DifferentialEquation equation, Node[,] nodes )
         {

@@ -4,7 +4,18 @@ namespace Constitutive
     {
         X,
         Y,
-        Z
+        Z,
+        Temperature,
+        Pressure,
+        DisplacementX,
+        DisplacementY,
+        DisplacementZ,
+        VelocityX,
+        VelocityY,
+        VelocityZ,
+        UnknownVariableX,
+        UnknownVariableY,
+        UnknownVariableZ
     }
     public abstract class DegreeOfFreedom : IDegreeOfFreedom
     {
