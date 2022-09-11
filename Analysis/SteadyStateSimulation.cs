@@ -4,23 +4,27 @@ using Constitutive;
 using DifferentialEquations;
 using BoundaryConditions;
 using DifferentialEquationSolutionMethods;
+using Simulations;
 using utility;
 
-public class SteadyStateProblem
+public class SteadyStateSimulation : ISteadyStateSimulation
 {
+    public SimulationType Type => SimulationType.SteadyState;
+    
     public Node [,] Nodes { get; }
 
     public SteadyStateMathematicalProblem MathProblem { get; }
 
     public DifferentialEquationsSolutionMethodType SolutionMethodType { get; }
 
-    public IDifferentialEquationSolutionMethod SolutionMethod => AssignSolutionMethod();
+    public IDifferentialEquationSolutionMethod SolutionMethod { get; }
 
-    public SteadyStateProblem(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, DifferentialEquationsSolutionMethodType solutionMethod, Solver solver)
+    public SteadyStateSimulation(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, DifferentialEquationsSolutionMethodType solutionMethod, Solver solver)
     {
         this.Nodes = nodes;
         this.MathProblem = mathProblem;
         this.SolutionMethodType = solutionMethod;
+        SolutionMethod = AssignSolutionMethod();
         AssignDegreesOfFreedomToNodes();
         AssignBoundaryValuesToBoundaryNodes();
         

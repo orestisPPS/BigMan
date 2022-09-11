@@ -15,12 +15,14 @@ namespace DifferentialEquationSolutionMethods
         
         public DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferenceMethod;
  
-        private INumericalScheme Scheme => SchemeSelector();
+        public INumericalScheme Scheme { get; }
 
+        
         public FiniteDifferenceMethod(Node[,] domainNodes,  MathematicalProblem mathematicalProblem)
         {
             this.Nodes = domainNodes;
             this.MathematicalProblem = mathematicalProblem;
+            this.Scheme = SchemeSelector();
         }
 
         public INumericalScheme SchemeSelector()

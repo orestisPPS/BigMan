@@ -4,17 +4,17 @@ using Constitutive;
 using BoundaryConditions;
 namespace MathematicalProblems
 {
-    public class SteadyStateMathematicalProblem : MathematicalProblem
+    public class SteadyStateMathematicalProblem : IMathematicalProblem
     {
-        public override MathematicalProblemType Type => MathematicalProblemType.BoundaryValueProblem;
+        public MathematicalProblemType Type => MathematicalProblemType.BoundaryValueProblem;
         
-        public override DifferentialEquation Equation { get; }
+        public DifferentialEquation Equation { get; }
 
         public List<Dictionary<string, BoundaryCondition>> BoundaryConditions { get; }
 
-        public override List<DegreeOfFreedom> DegreeOfFreedom { get; }
+        public List<DegreeOfFreedom> DegreeOfFreedom { get; }
         
-        public override bool IsTransient => false;
+        public bool IsTransient => false;
 
         public SteadyStateMathematicalProblem(DifferentialEquation equation,
                                               List<Dictionary<string, BoundaryCondition>> boundaryConditions,
