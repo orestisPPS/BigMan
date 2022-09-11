@@ -5,19 +5,19 @@ using BoundaryConditions;
 using InitialConditions;
 namespace MathematicalProblems
 {
-    public class TransientMathematicalProblem : MathematicalProblem
+    public class TransientMathematicalProblem : IMathematicalProblem
     {
-        public override MathematicalProblemType Type => MathematicalProblemType.BoundaryValueProblem;
+        public MathematicalProblemType Type => MathematicalProblemType.BoundaryValueProblem;
         
-        public override DifferentialEquation Equation { get; }
+        public DifferentialEquation Equation { get; }
 
         public List<Dictionary<string, BoundaryCondition>> BoundaryConditions { get; }
 
         public List<Dictionary<string, InitialCondition>> InitialConditions { get; }
         
-        public override List<DegreeOfFreedom> DegreeOfFreedom { get; }
+        public List<DegreeOfFreedom> DegreeOfFreedom { get; }
 
-        public override bool IsTransient => true;
+        public bool IsTransient => true;
 
         public TransientMathematicalProblem(DifferentialEquation equation,
                                             List<Dictionary<string, BoundaryCondition>> boundaryConditions,
