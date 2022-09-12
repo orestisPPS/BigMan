@@ -79,22 +79,20 @@ namespace Mesh
                         
                 }
                 
-                    metrics.covariantTensor[0, 0] = utilitiez.Calculators.vectorDotProduct(metrics.covariants1, metrics.covariants1);
-                    metrics.covariantTensor[0, 1] = utilitiez.Calculators.vectorDotProduct(metrics.covariants1, metrics.covariants2);
-                    metrics.covariantTensor[1, 0] = utilitiez.Calculators.vectorDotProduct(metrics.covariants2, metrics.covariants1);
-                    metrics.covariantTensor[1, 1] = utilitiez.Calculators.vectorDotProduct(metrics.covariants2, metrics.covariants2);
+                    metrics.covariantTensor[0, 0] = Calculators.vectorDotProduct(metrics.covariants1, metrics.covariants1);
+                    metrics.covariantTensor[0, 1] = Calculators.vectorDotProduct(metrics.covariants1, metrics.covariants2);
+                    metrics.covariantTensor[1, 0] = Calculators.vectorDotProduct(metrics.covariants2, metrics.covariants1);
+                    metrics.covariantTensor[1, 1] = Calculators.vectorDotProduct(metrics.covariants2, metrics.covariants2);
         
-                    metrics.contravariantTensor[0, 0] = utilitiez.Calculators.vectorDotProduct(metrics.contravariants1, metrics.contravariants1);
-                    metrics.contravariantTensor[1, 0] = utilitiez.Calculators.vectorDotProduct(metrics.contravariants1, metrics.contravariants2);
-                    metrics.contravariantTensor[0, 1] = utilitiez.Calculators.vectorDotProduct(metrics.contravariants2, metrics.contravariants1);
-                    metrics.contravariantTensor[1, 1] = utilitiez.Calculators.vectorDotProduct(metrics.contravariants2, metrics.contravariants2);
+                    metrics.contravariantTensor[0, 0] = Calculators.vectorDotProduct(metrics.contravariants1, metrics.contravariants1);
+                    metrics.contravariantTensor[1, 0] = Calculators.vectorDotProduct(metrics.contravariants1, metrics.contravariants2);
+                    metrics.contravariantTensor[0, 1] = Calculators.vectorDotProduct(metrics.contravariants2, metrics.contravariants1);
+                    metrics.contravariantTensor[1, 1] = Calculators.vectorDotProduct(metrics.contravariants2, metrics.contravariants2);
         
                     metrics.Jacobian = metrics.covariants1[0] * metrics.covariants2[1] - metrics.covariants1[1] * metrics.covariants2[0];
 
                     MeshMetrics.Add(node, metrics);
             }
-
-                
         }
         
 

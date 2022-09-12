@@ -5,6 +5,6 @@ namespace prizaLinearAlgebra
         public double[,] Matrix { get; }
         public double[] Vector { get; }
         public double[] Solution { get; }
-        public bool isSymmetric { get; } 
+        public bool IsSymmetric { get; } 
     }
 }

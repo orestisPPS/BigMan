@@ -9,7 +9,7 @@ namespace prizaLinearAlgebra
     public static class SparseMatrixStorage
     {
 
-        public static (double[], int[], int[]) CSR(double[,] A)
+        public static (double[], int[], int[])  CSR(double[,] A)
         {
             List<double> values = new List<double>();
             List<int> column = new List<int>();
