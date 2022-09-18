@@ -7,7 +7,6 @@ namespace BoundaryConditions
         public List<Node> Nodes { get; set; } = new List<Node>();
         public int NumberOfNodes => Nodes.Count;
        
-        public List <BoundaryCondition> BoundaryConditions {get; set; } = new List <BoundaryCondition>();
 
 
         /// <summary>

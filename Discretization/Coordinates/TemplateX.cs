@@ -1,16 +1,17 @@
 namespace Discretization
 {
-    public class TemplateX : Coordinate
+    public class TemplateX : IDirectionOne
     {
+        public CoordinateType Type => CoordinateType.TemplateX;
+        public double Value { get; set; }
         public TemplateX()
         {
-            this.Type = "TemplateX";
+
         }
 
         public TemplateX(double value)
         {
             this.Value = value;
-            this.Type = "TemplateX";
         }
     }
 }

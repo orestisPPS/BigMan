@@ -116,9 +116,9 @@ namespace Mesh
         
         public static Dictionary<string, BoundaryCondition> ParalleloGram(int nnx, int nny, double hx, double hy, double rotAngle, double shearX, double shearY)
         {
-            var rot = utilitiez.Calculators.DegreesToRad(rotAngle);
-            var ShearX = utilitiez.Calculators.DegreesToRad(shearX);
-            var ShearY = utilitiez.Calculators.DegreesToRad(shearY);
+            var rot = Calculators.DegreesToRad(rotAngle);
+            var ShearX = Calculators.DegreesToRad(shearX);
+            var ShearY = Calculators.DegreesToRad(shearY);
             var domainBoundaries = new BoundaryCondition[4];
 
             var pi = Math.Acos(-1d);

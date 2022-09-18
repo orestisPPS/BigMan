@@ -1,16 +1,17 @@
 namespace Discretization
 {
-    public class NaturalX : Coordinate
+    public class NaturalX : IDirectionOne
     {
+        public CoordinateType Type => CoordinateType.NaturalX;
+        public double Value { get; set; }
         public NaturalX()
         {
-            this.Type = "NaturalX";
+
         }
 
         public NaturalX(double value)
         {
             this.Value = value;
-            this.Type = "NaturalX";
         }
     }
 }
