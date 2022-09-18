@@ -1,4 +1,5 @@
 using DifferentialEquations;
+using Discretization;
 using MathematicalProblems;
 namespace DifferentialEquationSolutionMethods
 {
@@ -10,10 +11,14 @@ namespace DifferentialEquationSolutionMethods
 
     public interface IDifferentialEquationSolutionMethod
     {
-        public DifferentialEquationsSolutionMethodType Type { get; }
+        DifferentialEquationsSolutionMethodType Type { get; }
 
-        public IMathematicalProblem MathematicalProblem { get; }
+        IMathematicalProblem MathematicalProblem { get; }
 
-        public INumericalScheme Scheme { get; }
+        INumericalScheme Scheme { get; }
+
+        List<Node> FreeDOF { get; }
+
+        List<Node> BoundedDOF { get; }
     }
 }

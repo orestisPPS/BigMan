@@ -1,15 +1,12 @@
 using Discretization;
-
 namespace BoundaryConditions
 {
     public class DomainBoundary
     {
         public int Id { get; }
-        
-        public int NumberOfBoundaryNodes { get; internal set;}
-
-        public BoundaryCondition BoundaryCondition {get;}
-        
+        public List<Node> Nodes { get; set; } = new List<Node>();
+        public int NumberOfNodes => Nodes.Count;
+       
         public List <BoundaryCondition> BoundaryConditions {get; set; } = new List <BoundaryCondition>();
 
 

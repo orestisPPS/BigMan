@@ -19,13 +19,14 @@ public class SteadyStateSimulation : ISteadyStateSimulation
 
     public IDifferentialEquationSolutionMethod SolutionMethod { get; internal set; }
 
-    public SteadyStateSimulation(Node[,] nodes, SteadyStateMathematicalProblem mathProblem, DifferentialEquationsSolutionMethodType solutionMethodType)
+    public SteadyStateSimulation(Node[,] nodes, SteadyStateMathematicalProblem mathProblem,
+                                 DifferentialEquationsSolutionMethodType solutionMethodType)
     {
         this.Nodes = nodes;
         this.MathProblem = mathProblem;
         this.SolutionMethodType = solutionMethodType;
         AssignDegreesOfFreedomToNodes();
-        this.SolutionMethod = AssignSolutionMethod();
+        SolutionMethod = AssignSolutionMethod();
         var linearSystem = SolutionMethod.Scheme.LinearSystem;
         var matrix = linearSystem.Matrix;
         //AssignBoundaryValuesToBoundaryNodes();

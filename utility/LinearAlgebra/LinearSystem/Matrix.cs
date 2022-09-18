@@ -13,6 +13,7 @@ namespace prizaLinearAlgebra
 
         public Matrix(int rows, int columns)
         {
+            Create(rows, columns);
             this.Rows = rows;
             this.Columns = columns;
             this.Elements = new double[rows, columns];
