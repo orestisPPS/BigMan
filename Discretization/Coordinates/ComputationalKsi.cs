@@ -1,16 +1,17 @@
 namespace Discretization
 {
-    public class ComputationalKsi : Coordinate
+    public class ComputationalKsi : IDirectionTwo
     {
+        public CoordinateType Type => CoordinateType.ComputationalKsi;
+        public double Value { get; set; }
         public ComputationalKsi()
         {
-            this.Type = "ComputationalKsi";
+
         }
 
         public ComputationalKsi(double value)
         {
             this.Value = value;
-            this.Type = "ComputationalKsi";
         }
     }
 }

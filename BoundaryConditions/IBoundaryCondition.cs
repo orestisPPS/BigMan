@@ -1,10 +1,20 @@
 namespace BoundaryConditions
 {
+    public enum BoundaryConditionType
+    {
+        Dirichlet,
+        Neumann
+    }
     public interface IBoundaryCondition
     {
-        public string Type { get; }
+        BoundaryConditionType Type { get; }
     
-        public Func<double, double, double> Value { get; set; }
+        Func<double, double> Function1D { get; }
+
+        Func<double, double, double> Function2D { get; }
+
+        Func<double, double, double, double> Function3D { get; }
+
 
     }
 }

@@ -1,6 +1,6 @@
 namespace Discretization
 {
-    public class NaturalY : IDirectionOne
+    public class NaturalY : IDirectionTwo
     {
         public CoordinateType Type => CoordinateType.NaturalY;
         public double Value { get; set; }

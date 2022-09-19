@@ -23,8 +23,8 @@ namespace DifferentialEquationSolutionMethods
         
         private LinearSystem CreateLinearSystem()
         {
-            
-            var matrix = new Matrix(Nodes.GetLength(0) * Nodes.GetLength(1));
+            var matrixSize = Nodes.GetLength(0) * Nodes.GetLength(1);
+            var matrix = new Matrix(matrixSize, matrixSize);
             var vector = CreateVector();
             return new LinearSystem(matrix, vector);
         }

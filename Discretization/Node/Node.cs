@@ -5,9 +5,9 @@ namespace Discretization
     {   
         public NodeId Id {get; set;} = new NodeId();
 
-        public Dictionary <CoordinateType, Coordinate> Coordinates {get; set;} = new Dictionary <CoordinateType, Coordinate>();
+        public Dictionary <CoordinateType, ICoordinate> Coordinates {get; set;} = new Dictionary <CoordinateType, ICoordinate>();
 
-        public Dictionary<DegreeOfFreedomType, DegreeOfFreedom> DegreesOfFreedom {get; set;} = new Dictionary<DegreeOfFreedomType, DegreeOfFreedom>();
+        public Dictionary<DegreeOfFreedomType, IDegreeOfFreedom> DegreesOfFreedom {get; set;} = new Dictionary<DegreeOfFreedomType, IDegreeOfFreedom>();
         
         public Node()
         {

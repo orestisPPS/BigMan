@@ -17,6 +17,10 @@ namespace DifferentialEquationSolutionMethods
  
         public INumericalScheme Scheme => SchemeSelector();
 
+        public List<Node> FreeDOF { get; }
+
+        public List<Node> BoundedDOF { get; }
+
         
         public FiniteDifferenceMethod(Node[,] domainNodes,  IMathematicalProblem mathematicalProblem)
         {
