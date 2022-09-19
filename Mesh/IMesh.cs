@@ -4,12 +4,24 @@ namespace Mesh
 {
     public interface IMesh
     {
-        public Node[,] Nodes { get;}
-        public int NumberOfNodesDirectionOne {get; set;}
-        public int NumberOfNodesDirectionTwo {get; set;}
-        private void CreateMesh()
-        {
-            
-        }
+        Node[,] Nodes { get;}
+
+        List<Node> FreeDOF { get; }
+
+        List<Node> BoundedDOF { get; }
+
+        //TODO - Add Boundary class list
+
+        int NNDirectionOne {get;}
+
+        int NNDirectionTwo {get;}
+
+        void AssignFreeDegreesOfFreedom();
+
+        void AssignBoundedegreesOfFreedom();
+
+        void AssembleMesh();
+
+
     }
 }
