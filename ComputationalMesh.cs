@@ -3,7 +3,7 @@ using Constitutive;
 
 namespace Mesh
 {
-    public class ComputationalMesh : IMesh
+    public class ComputationalMesh : IMesh2D
     {
         public Node[,] Nodes { get; }
         public int NumberOfNodesDirectionOne { get; set; }

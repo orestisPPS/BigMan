@@ -7,21 +7,7 @@ namespace Mesh
 {
     public class MeshPreProcessor
     {
-        public int NNX {get;}
-        
-        public int NNY {get;}
-
-        public double TemplateHX {get;}
-
-        public double TemplateHY {get;}
-
-        public double TemplateRotationAngleInDegrees {get;} 
-
-        public double TemplateShearXAngleInDegrees {get;}
-
-        public double TemplateShearYAngleInDegrees {get;}
-
-        public int NumberOfNodes => NNX * NNY;
+        public MeshSpecs2D Specs { get; }
 
         public Node[,] Nodes {get; internal set;}
 
@@ -30,31 +16,24 @@ namespace Mesh
         public DifferentialEquationProperties DomainProperties {get; internal set;}
         private NodeFactory nodeFactory;
 
-        public MeshPreProcessor(int numberOfNodesX, int numberOfNodesY, double templateHX, double templateHy,
-                                double templateRotationAngleInDegrees, double templateShearXAngleInDegrees, double templateShearYAngleInDegrees)
+        public MeshPreProcessor(MeshSpecs2D specs)
         {
-            this.NNX = numberOfNodesY;
-            this.NNY = numberOfNodesX;
-            this.TemplateHX = templateHX;
-            this.TemplateHY = templateHy;
-            this.TemplateRotationAngleInDegrees = templateRotationAngleInDegrees;
-            this.TemplateShearYAngleInDegrees = templateShearYAngleInDegrees;
-            this.TemplateShearXAngleInDegrees = templateShearXAngleInDegrees;
-            this.nodeFactory = new NodeFactory(NNX, NNY);
-            this.Nodes = new Node[NNX,NNY];
-            this.Nodes = nodeFactory.Nodes;
-            this.Metrics = new Dictionary<Node, NodeMetrics>();
+            this.Specs = specs;
+            nodeFactory = new NodeFactory(numberOfNodesX : Specs.NNDirectionOne, numberOfNodesY : Specs.NNDirectionTwo);
+            Nodes = nodeFactory.Nodes;
+            Metrics = new Dictionary<Node, NodeMetrics>();
             AssingCoordinatesToNodes();
             CalculateMeshMetrix();
             AssignMeshProperties();
             ClearMemory();
         }
 
+
         private void AssingCoordinatesToNodes()
         {
-            for (int i = 0; i < NNX; i++)
+            for (int i = 0; i < Specs.NNDirectionOne; i++)
             {
-                for (int j = 0; j < NNY; j++)
+                for (int j = 0; j < Specs.NNDirectionTwo; j++)
                 {
                     AssignNaturalMeshCoordinatesToNodes(i, j);
                     AssgignComputationalMeshCoordinatesToNodes(i, j);
@@ -67,24 +46,25 @@ namespace Mesh
             Nodes[i, j].Coordinates.Add(CoordinateType.NaturalX, new NaturalX());
             Nodes[i, j].Coordinates.Add(CoordinateType.NaturalY, new NaturalY());
         }
-        private void AssgignComputationalMeshCoordinatesToNodes(int i, int j)
+        private void   AssgignComputationalMeshCoordinatesToNodes(int i, int j)
         {
-            var templateCoordinates = Transform(new double[] {i, j}); 
-            Nodes[i, j].Coordinates.Add(CoordinateType.ComputationalKsi, new ComputationalKsi(templateCoordinates[0]));
-            Nodes[i, j].Coordinates.Add(CoordinateType.ComputationalIta, new ComputationalIta(templateCoordinates[1]));
+
+            Nodes[i, j].Coordinates.Add(CoordinateType.ComputationalKsi, new ComputationalKsi(i));
+            Nodes[i, j].Coordinates.Add(CoordinateType.ComputationalIta, new ComputationalIta(j));
         }
 
         private void AssignTemplateMeshCoordinatesToNodes(int i, int j)
         {
-            Nodes[i, j].Coordinates.Add(CoordinateType.TemplateX, new TemplateX(i));
-            Nodes[i, j].Coordinates.Add(CoordinateType.TemplateY, new TemplateY(j));
+            var templateCoordinates = Transform(new double[] {i, j}); 
+            Nodes[i, j].Coordinates.Add(CoordinateType.TemplateX, new TemplateX(templateCoordinates[0]));
+            Nodes[i, j].Coordinates.Add(CoordinateType.TemplateY, new TemplateY(templateCoordinates[1]));
         }
 
         private double[] Transform(double[] initialCoord)
         {
-            var transformedCoord = TransformationTensors.Rotate (initialCoord, TemplateRotationAngleInDegrees);
-            transformedCoord = TransformationTensors.Shear(transformedCoord, TemplateShearXAngleInDegrees, TemplateShearYAngleInDegrees);
-            transformedCoord = TransformationTensors.Scale(transformedCoord, TemplateHX, TemplateHY);
+            var transformedCoord = TransformationTensors.Rotate (initialCoord, Specs.TemplateRotAngle);
+            transformedCoord = TransformationTensors.Shear(transformedCoord, Specs.TemplateShearX, Specs.TemplateShearY);
+            transformedCoord = TransformationTensors.Scale(transformedCoord, Specs.TemplateHx, Specs.TemplateHy);
             return transformedCoord;    
         }
 
