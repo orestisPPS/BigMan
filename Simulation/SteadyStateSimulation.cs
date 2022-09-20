@@ -21,6 +21,8 @@ public class SteadyStateSimulation : ISteadyStateSimulation
 
     public IDifferentialEquationSolutionMethod SolutionMethod { get; internal set; }
 
+    public List<Node> FreeDegreesOfFreedom { get; }
+
     public SteadyStateSimulation(int id, Node[,] nodes, SteadyStateMathematicalProblem mathProblem,
                                  DifferentialEquationsSolutionMethodType solutionMethodType)
     {

@@ -13,59 +13,82 @@ namespace Meshing
         /// <value></value>
         public Node[,] Nodes {get; set;}
         
+        public Dictionary<int, DomainBoundary> DomainBoundaries {get; set;} = new Dictionary<int, DomainBoundary>();
+
         private int NumberOfNodesX {get;}
 
         private int NumberOfNodesY {get;}
 
-        public Dictionary<int, Node> NodeDictionary {get; set;} = new Dictionary<int, Node>();
-        
+        public Dictionary<Tuple<int, int>, Node> NodeDictionary {get; set;} = new Dictionary<Tuple<int, int>, Node>();
         public NodeFactory(int numberOfNodesX, int numberOfNodesY)
         {
             this.NumberOfNodesX = numberOfNodesX;
             this.NumberOfNodesY = numberOfNodesY;
             Nodes = new Node[NumberOfNodesY, NumberOfNodesX];
-            CreateNodes();
+            CreateDomainBoundaries();
+            CreateDomainInternal();
             AssignGlobalIds();
-
-            // for (int row = 0; row < NumberOfNodesY; row++)
-            // {
-            //     for (int column = 0; column < NumberOfNodesX; column++)
-            //     {
-            //         var node =  Nodes[row, column];
-            //         Console.WriteLine("G. ID = " + node.Id.Global + " I. ID = " +  + node.Id.Internal + " B. ID = "  + node.Id.Boundary +
-            //         " X = " + node.Coordinates[CoordinateType.NaturalX].Value + " Y = " +  + node.Coordinates[CoordinateType.NaturalY].Value);
-            //     }
-            // }
-
         }
 
-        private void CreateNodes()
+        private void CreateDomainBoundaries()
         {
             var boundaryCounter = 0;
+            
             //Bottom Boundary
+            var bottomBoundary = new DomainBoundary(0);
             for (int i = 0; i < NumberOfNodesX; i++)
             {
                 Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
+                bottomBoundary.Nodes.Add(Nodes[0, i]);
+                NodeDictionary.Add(new Tuple<int, int>(0, i), Nodes[0, i]);
                 boundaryCounter++;
             }
+            DomainBoundaries.Add(0, bottomBoundary);
+            
             //Right Boundary
+            var rightBoundary = new DomainBoundary(1);
             for (int i = 1; i < NumberOfNodesY; i++)
             {
                 Nodes[i, NumberOfNodesX - 1] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
+                rightBoundary.Nodes.Add(Nodes[i, NumberOfNodesX - 1]);
+                NodeDictionary.Add(new Tuple<int, int>(i, NumberOfNodesX - 1), Nodes[i, NumberOfNodesX - 1]);
                 boundaryCounter++;
             }
+            DomainBoundaries.Add(1, rightBoundary);
+            
+            
             //Top Boundary
+            var topBoundary = new DomainBoundary(2);
             for (int i = 1; i < NumberOfNodesX; i++)
             {
                 Nodes[NumberOfNodesY - 1, NumberOfNodesX - 1 - i] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
+                topBoundary.Nodes.Add(Nodes[NumberOfNodesY - 1, NumberOfNodesX - 1 - i]);
+                NodeDictionary.Add(new Tuple<int, int>(NumberOfNodesY - 1, NumberOfNodesX - 1 - i), Nodes[NumberOfNodesY - 1, NumberOfNodesX - 1 - i]);
                 boundaryCounter++;
             }
+            DomainBoundaries.Add(2, topBoundary);
+            
             //Left Boundary
+            var leftBoundary = new DomainBoundary(3);
             for (int i = 1; i < NumberOfNodesY - 1; i++)
             {
                 Nodes[NumberOfNodesY - 1 - i, 0] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
+                leftBoundary.Nodes.Add(Nodes[NumberOfNodesY - 1 - i, 0]);
+                NodeDictionary.Add(new Tuple<int, int>(NumberOfNodesY - 1 - i, 0), Nodes[NumberOfNodesY - 1 - i, 0]);
                 boundaryCounter++;
             }
+            DomainBoundaries.Add(3, leftBoundary);
+        }
+
+        private Node InitializeInternalNode(int positionInternal)
+        {
+            var node = new Node();
+            node.Id.Internal = positionInternal;
+            return node;
+        }
+
+        private void CreateDomainInternal()
+        {
             //Internal 
             var internalCounter = 0;
             for (int row = 1; row < NumberOfNodesY - 1; row++)
@@ -73,6 +96,7 @@ namespace Meshing
                 for (int column = 1; column < NumberOfNodesX - 1; column++)
                 {
                     Nodes[row, column] = InitializeInternalNode(positionInternal : internalCounter);
+                    NodeDictionary.Add(new Tuple<int, int>(row, column), Nodes[row, column]);
                     internalCounter++;
                 }
             }
@@ -85,13 +109,6 @@ namespace Meshing
             return node;
         }
 
-        private Node InitializeInternalNode(int positionInternal)
-        {
-            var node = new Node();
-            node.Id.Internal = positionInternal;
-            return node;
-        }
-
         private void  AssignGlobalIds()
         {
             var k = 0;
@@ -100,7 +117,6 @@ namespace Meshing
                 for (int column = 0; column < NumberOfNodesX; column++)
                 {
                     Nodes[row, column].Id.Global = k;
-                    NodeDictionary.Add(k, Nodes[row, column]);
                     k++;
                 }
             }

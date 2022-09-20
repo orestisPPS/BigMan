@@ -9,26 +9,26 @@ namespace Meshing
         /// A 2d Node Array containing all the nodes of the domain.
         /// </summary>
         /// <value></value>
-        private Node[,] Nodes { get;}
+        public Dictionary<int, Node> Nodes { get;}
 
-        private int nnx => Nodes.GetLength(0);
+        private int nnx { get; }
 
-        private int nny => Nodes.GetLength(1);
+        private int nny { get; }
 
         /// <summary>
         /// A dictionary with the metrics of each mesh node as value and the node as key.
         /// </summary>
         public Dictionary<Node, NodeMetrics> MeshMetrics {get; internal set;} = new Dictionary<Node, NodeMetrics>();
 
-        public MetricsCalculator(Node[,] nodes)
+        public MetricsCalculator(Dictionary<int, Node> Nodes, int nnx, int nny)
         {
-            this.Nodes = nodes;
+            this.Nodes = Nodes;
             CalculateMeshMetrics();
         }
 
         private void CalculateMeshMetrics()
         {
-            foreach (var node in Nodes)
+            foreach (var node in Nodes.Values)
             {
                 var boundaryId = node.Id.Boundary;
                 var metrics = new NodeMetrics();
