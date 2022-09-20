@@ -1,5 +1,5 @@
 using Discretization;
-namespace BoundaryConditions
+namespace Meshing
 {
     public class DomainBoundary
     {

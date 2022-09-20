@@ -9,25 +9,30 @@ namespace Meshing
     {
         public MeshSpecs2D Specs { get; }
 
-        public Node[,] Nodes {get; internal set;}
+        public Node[,] Nodes {get; set;}
 
-        public Dictionary<Node, NodeMetrics> Metrics {get; internal set;}
+        public Dictionary<Node, NodeMetrics> Metrics {get; internal set;} = new Dictionary<Node, NodeMetrics>();
 
         public DifferentialEquationProperties DomainProperties {get; internal set;}
+        
         private NodeFactory nodeFactory;
 
         public MeshPreProcessor(MeshSpecs2D specs)
         {
             this.Specs = specs;
-            nodeFactory = new NodeFactory(numberOfNodesX : Specs.NNDirectionOne, numberOfNodesY : Specs.NNDirectionTwo);
-            Nodes = nodeFactory.Nodes;
-            Metrics = new Dictionary<Node, NodeMetrics>();
+            Nodes = InitiateNodes();
             AssingCoordinatesToNodes();
             CalculateMeshMetrix();
             AssignMeshProperties();
             ClearMemory();
         }
 
+        private Node[,] InitiateNodes()
+        {
+            Console.WriteLine("Initiating nodes...");
+            nodeFactory = new NodeFactory(numberOfNodesX : Specs.NNDirectionOne, numberOfNodesY : Specs.NNDirectionTwo);
+            return nodeFactory.Nodes;
+        }
 
         private void AssingCoordinatesToNodes()
         {
@@ -69,7 +74,7 @@ namespace Meshing
         }
 
         private void CalculateMeshMetrix()
-        {
+        {   Console.WriteLine("Calculating mesh metrics...");
             var MetricsCalculator = new MetricsCalculator(Nodes);
         }
 
@@ -84,7 +89,7 @@ namespace Meshing
             }
         }
         
-        private void AssignMeshProperties()
+        private LocallyAnisotropicConvectionDiffusionReactionEquationProperties AssignMeshProperties()
         {
             var diffusionCoefficients = new Dictionary<Node, double[,]>();
             var convectionCoefficients = new Dictionary<Node, double[]>();
@@ -97,7 +102,7 @@ namespace Meshing
                 dependentReactionCoefficients.Add(node, new double[] {0d, 0d} );
                 independentReactionCoefficients.Add(node, new double[] {0d, 0d} );
             }
-            DomainProperties = new LocallyAnisotropicConvectionDiffusionReactionEquationProperties(diffusionCoefficients, convectionCoefficients,
+            return new LocallyAnisotropicConvectionDiffusionReactionEquationProperties(diffusionCoefficients, convectionCoefficients,
                                                                                   dependentReactionCoefficients, independentReactionCoefficients);
         }
     }

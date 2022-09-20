@@ -11,6 +11,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Mesh Mesh = new Mesh(new MeshSpecs2D(5, 5, 1, 1, 0, 0, 0));
+        MeshSpecs2D meshSpecs = new MeshSpecs2D(5, 5, 0,1, 0.1, 0, 0);
+        MeshGenerator2D meshGenerator = new MeshGenerator2D(meshSpecs);
     }
 }

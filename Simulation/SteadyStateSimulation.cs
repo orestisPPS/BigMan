@@ -6,9 +6,11 @@ using BoundaryConditions;
 using DifferentialEquationSolutionMethods;
 using Simulations;
 using utility;
+using System.Diagnostics;
 
 public class SteadyStateSimulation : ISteadyStateSimulation
 {
+    public int Id { get; }
     public SimulationType Type => SimulationType.SteadyState;
     
     public Node [,] Nodes { get; }
@@ -19,29 +21,26 @@ public class SteadyStateSimulation : ISteadyStateSimulation
 
     public IDifferentialEquationSolutionMethod SolutionMethod { get; internal set; }
 
-    public SteadyStateSimulation(Node[,] nodes, SteadyStateMathematicalProblem mathProblem,
+    public SteadyStateSimulation(int id, Node[,] nodes, SteadyStateMathematicalProblem mathProblem,
                                  DifferentialEquationsSolutionMethodType solutionMethodType)
     {
+        var sw = new Stopwatch();
+        sw.Start();
+        this.Id = id;
         this.Nodes = nodes;
         this.MathProblem = mathProblem;
         this.SolutionMethodType = solutionMethodType;
         AssignDegreesOfFreedomToNodes();
         SolutionMethod = AssignSolutionMethod();
-        var linearSystem = SolutionMethod.Scheme.LinearSystem;
-        var matrix = linearSystem.Matrix;
+        sw.Stop();
+        Console.WriteLine($"Steady state simulation {id} executed in {sw.ElapsedMilliseconds} ms");
         //AssignBoundaryValuesToBoundaryNodes();
         
         
     }
     private void AssignDegreesOfFreedomToNodes()
     {
-        foreach (var node in Nodes)
-        {
-            foreach (var degreeOfFreedom in SolutionMethod.MathematicalProblem.DegreeOfFreedom)
-            {
-                node.DegreesOfFreedom.Add(degreeOfFreedom.Type, degreeOfFreedom);
-            }
-        }
+        throw new System.NotImplementedException();
     }
     private IDifferentialEquationSolutionMethod AssignSolutionMethod()
     {
@@ -58,6 +57,6 @@ public class SteadyStateSimulation : ISteadyStateSimulation
 
     public void InitiateAnalysis()
     {
-
+        throw new System.NotImplementedException();
     } 
 }

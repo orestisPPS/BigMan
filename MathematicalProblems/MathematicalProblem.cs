@@ -15,9 +15,11 @@ namespace MathematicalProblems
     {
         public MathematicalProblemType Type { get; }
 
-        public DifferentialEquation Equation { get; }
+        public IDifferentialEquation Equation { get; }
 
-        public List<DegreeOfFreedom> DegreeOfFreedom { get; }
+        public Dictionary<int, IBoundaryCondition> BoundaryConditions { get; }
+
+        public DegreeOfFreedom DegreeOfFreedom { get; }
 
         public bool IsTransient { get; }
     }

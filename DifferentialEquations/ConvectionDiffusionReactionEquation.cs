@@ -1,10 +1,10 @@
 namespace DifferentialEquations
 {
-    public class ConvectionDiffusionReactionEquation : DifferentialEquation
+    public class ConvectionDiffusionReactionEquation : IDifferentialEquation
     {
-        public override DifferentialEquationType DifferentialEquationType => DifferentialEquationType.ConvectionDiffusionReaction;
-        public override DifferentialEquationProperties Coefficients { get; }
-        public override bool IsTransient => Coefficients.IsTransient();
+        public DifferentialEquationType DifferentialEquationType { get; }
+        public bool IsTransient { get; }
+        public DifferentialEquationProperties Coefficients { get; }
         public ConvectionDiffusionReactionEquation(DifferentialEquationProperties coefficients)
         {
             this.Coefficients = coefficients;

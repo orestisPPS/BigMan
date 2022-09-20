@@ -5,11 +5,10 @@ namespace DifferentialEquations
     {
         ConvectionDiffusionReaction
     }
-    public abstract class DifferentialEquation : Equation
+    public interface IDifferentialEquation
     {
-        public override EquationType Type => EquationType.DifferentialEquation;
-        public virtual DifferentialEquationType DifferentialEquationType { get; }
-        public virtual bool IsTransient { get; }
-        public virtual DifferentialEquationProperties Coefficients { get; }
+        DifferentialEquationType DifferentialEquationType { get; }
+        bool IsTransient { get; }
+        DifferentialEquationProperties Coefficients { get; }
     }
 }

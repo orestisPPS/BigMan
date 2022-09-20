@@ -1,26 +1,74 @@
 using Discretization;
+using DifferentialEquations;
+using DifferentialEquationSolutionMethods;
+using Constitutive;
+using MathematicalProblems;
+using BoundaryConditions;
+using Simulations;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Meshing
 {
     public class MeshGenerator2D
     {
         public MeshSpecs2D MeshSpecs { get; }
+        private MeshPreProcessor PreProcessor;
+        private SteadyStateMathematicalProblem MathematicalProblemForX;
+        private SteadyStateMathematicalProblem MathematicalProblemForY;
+        public SteadyStateSimulation SimulationForX {get; set;}
+        public SteadyStateSimulation SimulationForY {get; set;}
+    
         public MeshGenerator2D(MeshSpecs2D specs)
-        { 
-                    var meshPreProcessor = new MeshPreProcessor(numberOfNodesX : 5, numberOfNodesY : 5,
-                                                    templateHX : 1d, templateHy : 1d,
-                                                    templateRotationAngleInDegrees : 0d,
-                                                    templateShearXAngleInDegrees : 0d, templateShearYAngleInDegrees : 0d);
+        {
+            this.MeshSpecs = specs;
+            PreProcessor = new MeshPreProcessor(specs);
+            MathematicalProblemForX = CreateMathematicalProblemForX();
+            MathematicalProblemForY = CreateMathematicalProblemForY();
 
-        var equationProperties = meshPreProcessor.DomainProperties;
-        var equation =   new ConvectionDiffusionReactionEquation(equationProperties);
-        var domainNodes = meshPreProcessor.Nodes;                   
-        var DegreesOfFreedom = new List<DegreeOfFreedom>();
-        DegreesOfFreedom.Add(new X());
-        DegreesOfFreedom.Add(new Y());
-        var mathematicalProblem = new SteadyStateMathematicalProblem(equation, new Dictionary<string, BoundaryCondition>(), DegreesOfFreedom);
-        var meshGenerationProblem =  new SteadyStateProblem(domainNodes, mathematicalProblem, solutionMethod, DegreesOfFreedom);
-        meshGenerationProblem.SolutionMethod.Scheme. 
         }
+
+        private SteadyStateMathematicalProblem CreateMathematicalProblemForX()
+        {
+            Console.WriteLine("Initiating mathematical problems ...");
+            var equationProperties = PreProcessor.DomainProperties;
+            var equationForX =   new ConvectionDiffusionReactionEquation(equationProperties);
+            var xDOF = new X();
+            return new SteadyStateMathematicalProblem(equationForX, new Dictionary<int, IBoundaryCondition>(), xDOF);
+        }
+
+        private SteadyStateMathematicalProblem CreateMathematicalProblemForY()
+        {
+            var equationProperties = PreProcessor.DomainProperties;
+            var equationForY =   new ConvectionDiffusionReactionEquation(equationProperties);
+            var yDOF = new Y();
+            return new SteadyStateMathematicalProblem(equationForY, new Dictionary<int, IBoundaryCondition>(), yDOF);
+        }
+
+        private SteadyStateSimulation CreateSimulationForX()
+        {
+            var nodes = PreProcessor.Nodes;
+            var solutionMethodType = DifferentialEquationsSolutionMethodType.FiniteDifferences;
+            SimulationForX = new SteadyStateSimulation(0, nodes, MathematicalProblemForX, solutionMethodType);
+            return SimulationForX;
+        }
+
+        private SteadyStateSimulation CreateSimulationForY()
+        {
+            var nodes = PreProcessor.Nodes;
+            var solutionMethodType = DifferentialEquationsSolutionMethodType.FiniteDifferences;
+            SimulationForY = new SteadyStateSimulation(1, nodes, MathematicalProblemForY, solutionMethodType);
+            return SimulationForY;
+        }
+
+        private void ParallelSolution()
+        {
+            Console.WriteLine("Initiating parallel solution ...");
+            Parallel.Invoke(
+                () => SimulationForX = CreateSimulationForX(),
+                () => SimulationForY = CreateSimulationForY()
+            );
+        }
+
     }
 }

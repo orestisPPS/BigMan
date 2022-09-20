@@ -8,21 +8,23 @@ namespace MathematicalProblems
     {
         public MathematicalProblemType Type => MathematicalProblemType.BoundaryValueProblem;
         
-        public DifferentialEquation Equation { get; }
+        public IDifferentialEquation Equation { get; }
 
-        public Dictionary<DomainBoundary, IBoundaryCondition> BoundaryConditions { get; }
+        public Dictionary<int, IBoundaryCondition> BoundaryConditions { get; }
 
-        public List<DegreeOfFreedom> DegreeOfFreedom { get; }
+        public DegreeOfFreedom DegreeOfFreedom { get; }
         
         public bool IsTransient => false;
 
-        public SteadyStateMathematicalProblem(DifferentialEquation equation,
-                                              Dictionary<DomainBoundary, IBoundaryCondition> boundaryConditions,
-                                              List<DegreeOfFreedom> degreesOfFreedom)
+        public SteadyStateMathematicalProblem(IDifferentialEquation equation,
+                                              Dictionary<int, IBoundaryCondition> boundaryConditions,
+                                              DegreeOfFreedom degreeOfFreedom)
         {
             this.Equation = equation;
             this.BoundaryConditions = boundaryConditions;
-            this.DegreeOfFreedom = degreesOfFreedom;
+            this.DegreeOfFreedom = degreeOfFreedom;
         }
+
+
     }
 }

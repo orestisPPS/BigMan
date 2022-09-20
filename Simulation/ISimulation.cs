@@ -15,13 +15,15 @@ namespace Simulations
     }
     public interface ISimulation
     {
-        public SimulationType Type { get; }
+        int Id { get; }
         
-        public Node[,] Nodes { get; }
+        SimulationType Type { get; }
+        
+        Node[,] Nodes { get; }
 
-        public DifferentialEquationsSolutionMethodType SolutionMethodType { get; }
+        DifferentialEquationsSolutionMethodType SolutionMethodType { get; }
 
-        public IDifferentialEquationSolutionMethod SolutionMethod { get; }
+        IDifferentialEquationSolutionMethod SolutionMethod { get; }
 
         // TODO - Create Solver
 
