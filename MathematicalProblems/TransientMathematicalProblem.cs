@@ -11,7 +11,7 @@ namespace MathematicalProblems
         
         public DifferentialEquation Equation { get; }
 
-        public List<Dictionary<string, BoundaryCondition>> BoundaryConditions { get; }
+        public Dictionary<DomainBoundary, IBoundaryCondition> BoundaryConditions { get; }
 
         public List<Dictionary<string, InitialCondition>> InitialConditions { get; }
         
@@ -20,7 +20,7 @@ namespace MathematicalProblems
         public bool IsTransient => true;
 
         public TransientMathematicalProblem(DifferentialEquation equation,
-                                            List<Dictionary<string, BoundaryCondition>> boundaryConditions,
+                                            Dictionary<DomainBoundary, IBoundaryCondition> boundaryConditions,
                                             List<Dictionary<string, InitialCondition>> initialConditions,
                                             List<DegreeOfFreedom> degreesOfFreedom)
         {

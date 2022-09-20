@@ -4,38 +4,45 @@ namespace BoundaryConditions
     public class DomainBoundary
     {
         public int Id { get; }
-        public List<Node> Nodes { get; set; } = new List<Node>();
-        public int NumberOfNodes => Nodes.Count;
        
+        public List<Node> Nodes = new List<Node>();
+       
+        public int NumberOfNodes => Nodes.Count;
 
-
-        /// <summary>
-        /// This constructor is used when the boundary condition function is applied to all nodes of the boundary.
-        /// </summary>
-        /// <param name="numberOfBoundaryNodes"></param>
-        /// <param name="boundaryCondition"></param>
-        public DomainBoundary(int id, int numberOfBoundaryNodes, BoundaryCondition boundaryCondition)
+        public DomainBoundary(int id)
         {
             this.Id = id;
-            this.NumberOfBoundaryNodes = numberOfBoundaryNodes;
-            this.BoundaryCondition = boundaryCondition;
-
-            for (int i = 0; i < numberOfBoundaryNodes; i++)
-            {
-                BoundaryConditions.Add(BoundaryCondition);
-            }
         }
 
-
-        /// <summary>
-        /// This constructor is used when the boundary condition function varies with the node.
-        /// </summary>
-        /// <param name="boundaryConditions"></param>
-        public DomainBoundary(int id, List <BoundaryCondition> boundaryConditions)
+        public void AssignNodesToBoundary(Node[,] nodes)
         {
-            this.Id = id;
-            this.NumberOfBoundaryNodes = boundaryConditions.Count;
-            this.BoundaryConditions = boundaryConditions;
+            switch (Id)
+            {
+                case 0:
+                    for (int i = 0; i < nodes.GetLength(0); i++)
+                    {
+                        Nodes.Add(nodes[i, 0]);
+                    }
+                    break;
+                case 1:
+                    for (int i = 0; i < nodes.GetLength(0); i++)
+                    {
+                        Nodes.Add(nodes[i, nodes.GetLength(1) - 1]);
+                    }
+                    break;
+                case 2:
+                    for (int i = 0; i < nodes.GetLength(1); i++)
+                    {
+                        Nodes.Add(nodes[0, i]);
+                    }
+                    break;
+                case 3:
+                    for (int i = 0; i < nodes.GetLength(1); i++)
+                    {
+                        Nodes.Add(nodes[nodes.GetLength(0) - 1, i]);
+                    }
+                    break;
+            }
         }
 
     }   
