@@ -1,7 +1,7 @@
 using prizaLinearAlgebra;
 using utility;
 using Discretization;
-namespace Mesh
+namespace Meshing
 {
     public class NodeMetrics
     {

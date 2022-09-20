@@ -3,7 +3,7 @@ using BoundaryConditions;
 using DifferentialEquations;
 using utility;
 
-namespace Mesh
+namespace Meshing
 {
     public class MeshPreProcessor
     {

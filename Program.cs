@@ -1,5 +1,5 @@
 ﻿using DifferentialEquations;
-using Mesh;
+using Meshing;
 using Discretization;
 using Constitutive;
 using BoundaryConditions;
@@ -11,19 +11,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        var meshPreProcessor = new MeshPreProcessor(numberOfNodesX : 5, numberOfNodesY : 5,
-                                                    templateHX : 1d, templateHy : 1d,
-                                                    templateRotationAngleInDegrees : 0d,
-                                                    templateShearXAngleInDegrees : 0d, templateShearYAngleInDegrees : 0d);
-
-        var equationProperties = meshPreProcessor.DomainProperties;
-        var equation =   new ConvectionDiffusionReactionEquation(equationProperties);
-        var domainNodes = meshPreProcessor.Nodes;                   
-        var DegreesOfFreedom = new List<DegreeOfFreedom>();
-        DegreesOfFreedom.Add(new X());
-        DegreesOfFreedom.Add(new Y());
-        var mathematicalProblem = new SteadyStateMathematicalProblem(equation, new Dictionary<string, BoundaryCondition>(), DegreesOfFreedom);
-        var meshGenerationProblem =  new SteadyStateProblem(domainNodes, mathematicalProblem, solutionMethod, DegreesOfFreedom);
-        meshGenerationProblem.SolutionMethod.Scheme.
+        Mesh Mesh = new Mesh(new MeshSpecs2D(5, 5, 1, 1, 0, 0, 0));
     }
 }

@@ -1,6 +1,6 @@
 using prizaLinearAlgebra;
 using utility;
-namespace Mesh
+namespace Meshing
 {
     public static class BoundaryCreator
     {

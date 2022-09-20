@@ -1,6 +1,6 @@
 using Discretization;
 
-namespace Mesh
+namespace Meshing
 {
     public interface IMesh2D
     {

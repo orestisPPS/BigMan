@@ -1,8 +1,8 @@
 using Discretization;
 
-namespace Mesh
+namespace Meshing
 {
-    public abstract class Mesh2D : IMesh2D
+    public class Mesh2D : IMesh2D
     {
         public MeshSpecs2D Specs {get; }
         public Node[,] Nodes { get; internal set; }
@@ -16,13 +16,8 @@ namespace Mesh
 
         private void AssembleMesh()
         {
-            var meshPreProcessor = new MeshPreProcessor(Specs);
-            Nodes = meshPreProcessor.Nodes;
-            Generator = new MeshGenerator2D(Specs, Nodes);
-            Generator.GenerateMesh();
+            Generator = new MeshGenerator2D(Specs);
         }
-
-        private void AssignAdditional
 
     }
 }
