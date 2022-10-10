@@ -3,12 +3,13 @@ namespace prizaLinearAlgebra
 {
     public class LinearSystem : ILinearSystem
     {
-        public Matrix Matrix { get; }
+        public IMatrix Matrix { get; }
         public double[] Vector { get; }
         public double[] Solution { get; set; }
+        
         //public List<double[]> PreviousSolutions { get; internal set; } = new List<double[]>();
 
-        public LinearSystem(Matrix matrix, double[] vector)
+        public LinearSystem(IMatrix matrix, double[] vector)
         {
             this.Matrix = matrix;
             this.Vector = vector;

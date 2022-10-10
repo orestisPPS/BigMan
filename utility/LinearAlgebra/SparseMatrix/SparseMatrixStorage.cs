@@ -5,11 +5,13 @@ using utility;
 
 namespace prizaLinearAlgebra
 {
-    
+    // Tim Davis
+    // Tim Davis
+
     public static class SparseMatrixStorage
     {
 
-        public static (double[], int[], int[])  CSR(double[,] A)
+        public static (double[], int[], int[]) CSR(double[,] A)
         {
             List<double> values = new List<double>();
             List<int> column = new List<int>();
@@ -45,7 +47,10 @@ namespace prizaLinearAlgebra
             for (int i = 0; i < x.Length; i++)
             {
                 x[i] = 0d;
-                for (int j = rowOffset[i]; j < rowOffset[i + 1]; j++) { x[i] += values[j] * vector[column[j]]; }
+                for (int j = rowOffset[i]; j < rowOffset[i + 1]; j++)
+                {
+                    x[i] += values[j] * vector[column[j]];
+                }
             }
 
             return x;
@@ -259,7 +264,10 @@ namespace prizaLinearAlgebra
             // First element of diagonal k in array values is in the n * k position
             var firstOfDiagonal = n * diagonal;
 
-            if (Math.Abs(diagonal) > maxDiagonal) { Aij = 0; }
+            if (Math.Abs(diagonal) > maxDiagonal)
+            {
+                Aij = 0;
+            }
             else
             {
                 //i denotes the increasing number of elements inside k diagonal in the upper triangular (i>=1)

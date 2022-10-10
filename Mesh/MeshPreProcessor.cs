@@ -26,12 +26,23 @@ namespace Meshing
             this.Specs = specs;
             Nodes = InitiateNodes();
             AssingCoordinatesToNodes();
+            PrintNodes();
             CreateNodeIdDictionary();
             CalculateMeshMetrix();
             DomainProperties = AssignMeshGenerationProperties();
             ClearMemory();
         }
-
+        ///This method prints the parametric coordinates of the nodes as well as the node ids
+        public void PrintNodes()
+        {
+            for (int j = 0; j < Nodes.GetLength(1); j++)
+            {
+                for (int i = 0; i < Nodes.GetLength(0); i++)
+                {
+                    Console.WriteLine($"G id: {Nodes[i, j].Id.Global}, B id: {Nodes[i, j].Id.Boundary}, I id: {Nodes[i, j].Id.Internal}, x: {Nodes[i, j].Coordinates[CoordinateType.ParametricKsi].Value}, y: {Nodes[i, j].Coordinates[CoordinateType.ParametricIta].Value}");
+                }
+            }
+        }
         private Node[,] InitiateNodes()
         {
             var sw = new Stopwatch();
@@ -45,11 +56,13 @@ namespace Meshing
 
         private void AssingCoordinatesToNodes()
         {
+            Console.WriteLine("Initiating node coodinates in the physical domain...");
+            Console.WriteLine("Initiating and calculating node coodinates in the parametric and template domains...");
             var sw = new Stopwatch();
             sw.Start();
-            for (int i = 0; i < Specs.NNDirectionOne; i++)
+            for (int j = 0; j < Specs.NNDirectionTwo; j++)
             {
-                for (int j = 0; j < Specs.NNDirectionTwo; j++)
+                for (int i = 0; i < Specs.NNDirectionOne; i++)
                 {
                     AssignNaturalMeshCoordinatesToNodes(i, j);
                     AssgignComputationalMeshCoordinatesToNodes(i, j);
@@ -69,8 +82,8 @@ namespace Meshing
         private void   AssgignComputationalMeshCoordinatesToNodes(int i, int j)
         {
 
-            Nodes[i, j].Coordinates.Add(CoordinateType.ComputationalKsi, new ComputationalKsi(i));
-            Nodes[i, j].Coordinates.Add(CoordinateType.ComputationalIta, new ComputationalIta(j));
+            Nodes[i, j].Coordinates.Add(CoordinateType.ParametricKsi, new ParametricKsi(i));
+            Nodes[i, j].Coordinates.Add(CoordinateType.ParametricIta, new ParametricIta(j));
         }
 
         private void AssignTemplateMeshCoordinatesToNodes(int i, int j)
@@ -101,8 +114,8 @@ namespace Meshing
         {
             foreach (var node in Nodes)
             {
-                node.Coordinates.Remove(CoordinateType.ComputationalKsi);
-                node.Coordinates.Remove(CoordinateType.ComputationalIta);
+                node.Coordinates.Remove(CoordinateType.ParametricKsi);
+                node.Coordinates.Remove(CoordinateType.ParametricIta);
                 node.Coordinates.Remove(CoordinateType.TemplateX);
                 node.Coordinates.Remove(CoordinateType.TemplateY);
             }

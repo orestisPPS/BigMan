@@ -59,7 +59,6 @@ namespace Meshing
                 FindNeighbours();
             }
 
-            
         }
 
         private void FindNeighbours()

@@ -1,15 +1,18 @@
 namespace prizaLinearAlgebra
 {
     public interface IMatrix
-    {
-        double[,] Elements { get; set; }
+    {   double[,] Elements {get; set;}
         int Rows {get;}
+
         int Columns {get;}
+
         int NumberOfElements => Rows * Columns;
+
         bool IsSymmetric { get; set; }
 
         Dictionary<Tuple<int, int>, double> AsDictionary();
-        void CopyFromArray(double[,] array);
+        
+        //void CopyFromArray(double[,] array);
 
         void CopyFromDictionary(Dictionary<Tuple<int, int>, double> matrix);
 

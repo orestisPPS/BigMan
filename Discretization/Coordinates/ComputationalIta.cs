@@ -1,15 +1,15 @@
 namespace Discretization
 {
-    public class ComputationalIta : IDirectionTwo
+    public class ParametricIta : IDirectionTwo
     {
-        public CoordinateType Type => CoordinateType.ComputationalIta;
+        public CoordinateType Type => CoordinateType.ParametricIta;
         public double Value { get; set; }
-        public ComputationalIta()
+        public ParametricIta()
         {
 
         }
 
-        public ComputationalIta(double value)
+        public ParametricIta(double value)
         {
             this.Value = value;
         }

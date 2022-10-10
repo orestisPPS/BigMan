@@ -2,26 +2,34 @@ using System.Threading.Tasks;
 
 namespace prizaLinearAlgebra
 {
+    public enum MatrixStorageFormat
+    {
+        Full,
+        CSR,
+        CSC,
+        COO,
+        Banded,
+        Skyline
+    }
     public class Matrix : IMatrix
     {
-
         public double[,] Elements { get; set; }
-        public int Rows {get;}
-        public int Columns {get;}
+        public int Rows { get; }
+        public int Columns { get; }
         public int NumberOfElements => Rows * Columns;
         public bool IsSymmetric { get; set; }
 
-        public Matrix(int rows, int columns)
+        public   Matrix(double [,] elements)
         {
-            Create(rows, columns);
-            this.Rows = rows;
-            this.Columns = columns;
-            this.Elements = new double[rows, columns];
+            this.Elements = elements;
+            this.Rows = elements.GetLength(0);
+            this.Columns = elements.GetLength(1);
         }
 
-        public void Create(int rows, int columns)
+
+        public void DeallocateMatrix()
         {
-            Elements = new double[rows, columns];
+            Elements = null;
         }
 
         public Dictionary<Tuple<int, int>, double> AsDictionary()
@@ -31,25 +39,21 @@ namespace prizaLinearAlgebra
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    matrix.Add(new Tuple<int, int>(i, j), this.Elements[i, j]);
+                    matrix.Add(new Tuple<int, int>(i, j), Elements[i,j]);
                 }
             }
             return matrix;
         }
 
-        public void CopyFromArray(double[,] array)
-        {
-            this.Elements = array;
-        }
 
         public void CopyFromDictionary(Dictionary<Tuple<int, int>, double> matrix)
         {
-            this.Elements = new double[matrix.Count, matrix.Count];
-            foreach (var item in matrix)
+            foreach (var matrixCoordinate in matrix.Keys)
             {
-                this.Elements[item.Key.Item1, item.Key.Item2] = item.Value;
+                Elements[matrixCoordinate.Item1, matrixCoordinate.Item2] = matrix[matrixCoordinate];
             }
         }
+
 
         public bool IsMatrixSymmetric()
         {
@@ -61,7 +65,7 @@ namespace prizaLinearAlgebra
             {
                 for (int j = i; j < Columns; j++)
                 {
-                    if (this.Elements[i, j] != this.Elements[j, i])
+                    if (Elements[i,j] != Elements[i,j])
                     {
                         return false;
                     }
@@ -77,7 +81,7 @@ namespace prizaLinearAlgebra
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    transpose[j, i] = this.Elements[i, j];
+                    transpose[j, i] = Elements[i,j];
                 }
             }
             return transpose;
@@ -90,7 +94,7 @@ namespace prizaLinearAlgebra
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    scaled[i, j] = this.Elements[i, j] * scalar;
+                    scaled[i, j] = Elements[i,j] * scalar;
                 }
             }
             return scaled;
@@ -103,7 +107,7 @@ namespace prizaLinearAlgebra
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    added[i, j] = Elements[i, j] + matrix[i, j];
+                    added[i, j] = Elements[i,j] + matrix[i, j];
                 }
             }
             return added;
@@ -116,7 +120,7 @@ namespace prizaLinearAlgebra
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    subtracted[i, j] = Elements[i, j] - matrix[i, j];
+                    subtracted[i, j] = Elements[i,j] - matrix[i, j];
                 }
             }
             return subtracted;
@@ -131,7 +135,7 @@ namespace prizaLinearAlgebra
                 {
                     for (int k = 0; k < Columns; k++)
                     {
-                        multiplied[i, j] += Elements[i, k] * matrix[k, j];
+                        multiplied[i, j] += Elements[i,j] * matrix[k, j];
                     }
                 }
             }
@@ -164,21 +168,21 @@ namespace prizaLinearAlgebra
                     case > 10000:
                         Parallel.For(0, Columns, j =>
                         {
-                            multiplied[i] += Elements[i, j];
+                            multiplied[i] += Elements[i,j];
                         });
                         break;
                         
                     case <= 10000:
                         for (int j = 0; j < Columns; j++)
                         {
-                            multiplied[i] += Elements[i, j];
+                            multiplied[i] += Elements[i,j];
                         }
                         break;
                 }
 
                 for (int j = 0; j < Columns; j++)
                 {
-                    multiplied[i] += Elements[i, j];
+                    multiplied[i] += Elements[i,j];
                 }
             }
             return multiplied;

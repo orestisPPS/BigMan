@@ -116,7 +116,7 @@ namespace Meshing
             {
                 for (int column = 0; column < NumberOfNodesX; column++)
                 {
-                    Nodes[row, column].Id.Global = k;
+                    Nodes[column, row].Id.Global = k;
                     k++;
                 }
             }

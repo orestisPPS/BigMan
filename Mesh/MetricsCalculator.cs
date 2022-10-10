@@ -120,20 +120,20 @@ namespace Meshing
                                                                             N.Coordinates[CoordinateType.TemplateY].Value,
                                                                             NN.Coordinates[CoordinateType.TemplateY].Value, 1);
             //[ksi,x, ita,x]
-            metrics.contravariants1[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                E.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                EE.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                N.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                NN.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants1[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                E.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                EE.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                N.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                NN.Coordinates[CoordinateType.ParametricIta].Value, 1);
 
             //[ksi,y, ita,y]
-            metrics.contravariants2[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                E.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                EE.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                N.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                NN.Coordinates[CoordinateType.ComputationalIta].Value, 1);              
+            metrics.contravariants2[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                E.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                EE.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                N.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                NN.Coordinates[CoordinateType.ParametricIta].Value, 1);              
 
             return metrics;
         }
@@ -162,19 +162,19 @@ namespace Meshing
                                                                            N.Coordinates[CoordinateType.TemplateY].Value,
                                                                            NN.Coordinates[CoordinateType.TemplateY].Value, 1);
             //[ksi,x, ita,x]
-            metrics.contravariants1[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                WW.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                N.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                NN.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants1[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                WW.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                N.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                NN.Coordinates[CoordinateType.ParametricIta].Value, 1);
             //[ksi,y, ita,y]   
-            metrics.contravariants2[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                WW.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                N.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                NN.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants2[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                WW.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                N.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                NN.Coordinates[CoordinateType.ParametricIta].Value, 1);
             return metrics;
         }
 
@@ -200,19 +200,19 @@ namespace Meshing
                                                                             S.Coordinates[CoordinateType.TemplateY].Value,
                                                                             SS.Coordinates[CoordinateType.TemplateY].Value, 1);     
             //[ksi,x, ita,x]
-            metrics.contravariants1[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                E.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                EE.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                SS.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants1[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                E.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                EE.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                SS.Coordinates[CoordinateType.ParametricIta].Value, 1);
             //[ksi,y, ita,y]
-            metrics.contravariants2[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                E.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                EE.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                SS.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants2[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                E.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                EE.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                SS.Coordinates[CoordinateType.ParametricIta].Value, 1);
             return metrics;
         }
 
@@ -238,19 +238,19 @@ namespace Meshing
                                                                             S.Coordinates[CoordinateType.TemplateY].Value,
                                                                             SS.Coordinates[CoordinateType.TemplateY].Value, 1);
             //[ksi,x, ita,x]
-            metrics.contravariants1[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                WW.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                SS.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants1[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                WW.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                SS.Coordinates[CoordinateType.ParametricIta].Value, 1);
             //[ksi,y, ita,y]
-            metrics.contravariants2[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                                WW.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                                SS.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants2[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                                WW.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                                SS.Coordinates[CoordinateType.ParametricIta].Value, 1);
             return metrics;
         }
 
@@ -275,17 +275,17 @@ namespace Meshing
                                                                            N.Coordinates[CoordinateType.TemplateY].Value,
                                                                           NN.Coordinates[CoordinateType.TemplateY].Value, 1);
             //[ksi,x, ita,x]
-            metrics.contravariants1[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                           E.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                               N.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                              NN.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants1[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                           E.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                               N.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                              NN.Coordinates[CoordinateType.ParametricIta].Value, 1);
             //[ksi,y, ita,y]
-            metrics.contravariants2[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                           E.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                               N.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                              NN.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants2[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                           E.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                               N.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                              NN.Coordinates[CoordinateType.ParametricIta].Value, 1);
             return metrics;
         }
 
@@ -310,17 +310,17 @@ namespace Meshing
             metrics.covariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.TemplateY].Value,
                                                                        N.Coordinates[CoordinateType.TemplateY].Value, 1);                
             //[ksi,x, ita,x]    
-            metrics.contravariants1[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                            W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                           WW.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                          N.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants1[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                            W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                           WW.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                          N.Coordinates[CoordinateType.ParametricIta].Value, 1);
             //[ksi,y, ita,y]
-            metrics.contravariants2[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                            W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                           WW.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                            N.Coordinates[CoordinateType.ComputationalIta].Value, 1);               
+            metrics.contravariants2[0] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                            W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                           WW.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                            N.Coordinates[CoordinateType.ParametricIta].Value, 1);               
             return metrics;
         }
 
@@ -345,17 +345,17 @@ namespace Meshing
                                                                             S.Coordinates[CoordinateType.TemplateY].Value,
                                                                            SS.Coordinates[CoordinateType.TemplateY].Value, 1);
             //[ksi,x, ita,x]
-            metrics.contravariants1[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                           E.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                            S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                           SS.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants1[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                           E.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                            S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                           SS.Coordinates[CoordinateType.ParametricIta].Value, 1);
             //[ksi,y, ita,y]
-            metrics.contravariants2[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                           E.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                            S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                           SS.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants2[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                           E.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.BackwardDifference2(node.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                            S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                           SS.Coordinates[CoordinateType.ParametricIta].Value, 1);
             return metrics;
         }
 
@@ -380,17 +380,17 @@ namespace Meshing
             metrics.covariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.TemplateY].Value,
                                                                           N.Coordinates[CoordinateType.TemplateY].Value, 1);
             //[ksi,x, ita,x]
-            metrics.contravariants1[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                        E.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                       EE.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                          N.Coordinates[CoordinateType.ComputationalIta].Value, 1);                 
+            metrics.contravariants1[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                        E.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                       EE.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                          N.Coordinates[CoordinateType.ParametricIta].Value, 1);                 
             //[ksi,y, ita,y]
-            metrics.contravariants2[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                        E.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                       EE.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                          N.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants2[0] = FirstDerivative.ForwardDifference2(node.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                        E.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                       EE.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                          N.Coordinates[CoordinateType.ParametricIta].Value, 1);
             return metrics;
         }
 
@@ -412,15 +412,15 @@ namespace Meshing
             metrics.covariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.TemplateY].Value,
                                                                        N.Coordinates[CoordinateType.TemplateY].Value, 1);
             //[ksi,x, ita,x]
-            metrics.contravariants1[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                           E.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants1[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                           N.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants1[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                           E.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants1[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                           N.Coordinates[CoordinateType.ParametricIta].Value, 1);
             //[ksi,y, ita,y]
-            metrics.contravariants2[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ComputationalKsi].Value,
-                                                                           E.Coordinates[CoordinateType.ComputationalKsi].Value, 1);
-            metrics.contravariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ComputationalIta].Value,
-                                                                           N.Coordinates[CoordinateType.ComputationalIta].Value, 1);
+            metrics.contravariants2[0] = FirstDerivative.CentralDifference(W.Coordinates[CoordinateType.ParametricKsi].Value,
+                                                                           E.Coordinates[CoordinateType.ParametricKsi].Value, 1);
+            metrics.contravariants2[1] = FirstDerivative.CentralDifference(S.Coordinates[CoordinateType.ParametricIta].Value,
+                                                                           N.Coordinates[CoordinateType.ParametricIta].Value, 1);
             return metrics;
 
         }

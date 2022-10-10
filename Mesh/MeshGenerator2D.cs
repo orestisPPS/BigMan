@@ -16,8 +16,8 @@ namespace Meshing
         private MeshPreProcessor PreProcessor;
         private SteadyStateMathematicalProblem MathematicalProblemForX;
         private SteadyStateMathematicalProblem MathematicalProblemForY;
-        public SteadyStateSimulation SimulationForX {get; set;}
-        public SteadyStateSimulation SimulationForY {get; set;}
+        private SteadyStateSimulation SimulationForX;
+        private SteadyStateSimulation SimulationForY;
     
         public MeshGenerator2D(MeshSpecs2D specs)
         {
@@ -25,6 +25,7 @@ namespace Meshing
             PreProcessor = new MeshPreProcessor(specs);
             MathematicalProblemForX = CreateMathematicalProblemForX();
             MathematicalProblemForY = CreateMathematicalProblemForY();
+            ParallelSolution();
 
         }
 

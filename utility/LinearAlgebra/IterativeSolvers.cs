@@ -33,7 +33,7 @@ namespace prizaLinearAlgebra
             ResidualCalculator();
 
             //Print
-            //utilitiez.IterativeMethodPrinter(A, b, x, iterations, residual);
+            //IterativeMethodPrinter(A, b, x, iterations, residual);
 
             return x;
 
@@ -111,7 +111,7 @@ namespace prizaLinearAlgebra
             ResidualCalculator();
 
             //Print
-            //utilitiez.IterativeMethodPrinter(A, b, x, iterations, residual);
+            //IterativeMethodPrinter(A, b, x, iterations, residual);
 
             return x;
 
@@ -189,7 +189,7 @@ namespace prizaLinearAlgebra
             ResidualCalculator();
 
             //Print
-            //utilitiez.IterativeMethodPrinter(A, b, x, iterations, residual);
+            //IterativeMethodPrinter(A, b, x, iterations, residual);
 
             return x;
 
@@ -602,7 +602,7 @@ namespace prizaLinearAlgebra
             // Create Preconditioner
             //var MInverse = Preconditioners.JacobiPc.CreatePCMatrix(A);
             var MInverse = Preconditioners.JacobiPc.CreatePCMatrix(A);
-            //utilitiez.matrixPrinter(MInverse);
+            //matrixPrinter(MInverse);
 
             // Save matrix in sparse form
             var values = SparseMatrixStorage.CSR(A).Item1;
@@ -622,18 +622,18 @@ namespace prizaLinearAlgebra
             rOld = ResidualCalculatorSparse();
 
             //  Initialize direction vector
-            dOld = utilitiez.Calculators.MatrixVectorMultiplication(MInverse, rOld);
-            sOld = utilitiez.Calculators.vectorEquals(dOld);
+            dOld = Calculators.MatrixVectorMultiplication(MInverse, rOld);
+            sOld = Calculators.vectorEquals(dOld);
 
             // Calculate r0T * s0 for error
-            //var r0s0 = utilitiez.Calculators.vectorDotProduct(rOld, sOld);
+            //var r0s0 = Calculators.vectorDotProduct(rOld, sOld);
 
             // Iterative Solution
             IterativeSolution();
 
             //Print
-            //utilitiez.CSRPrinter(A, values, column, rowOffset);
-            //utilitiez.CompressedIterativeMethodPrinter(vector, xNew, iterations, rNew);
+            //CSRPrinter(A, values, column, rowOffset);
+            //CompressedIterativeMethodPrinter(vector, xNew, iterations, rNew);
 
             return xNew;
 
@@ -652,19 +652,19 @@ namespace prizaLinearAlgebra
                     Error = 0d;
 
                     var AdOld = SparseMatrixStorage.CSRMatrixVectorMultiplication(values, column, rowOffset, dOld);
-                    double rOldTsOld = utilitiez.Calculators.vectorDotProduct(rOld, sOld);
-                    double dOldAdOld = utilitiez.Calculators.vectorDotProduct(dOld, AdOld);
+                    double rOldTsOld = Calculators.vectorDotProduct(rOld, sOld);
+                    double dOldAdOld = Calculators.vectorDotProduct(dOld, AdOld);
                     a = rOldTsOld / dOldAdOld;
 
-                    xNew = utilitiez.Calculators.vectorAddition(xOld, utilitiez.Calculators.vectorScalarMultiplication(a, dOld));
-                    rNew = utilitiez.Calculators.vectorSubtraction(rOld, utilitiez.Calculators.vectorScalarMultiplication(a, AdOld));
-                    sNew = utilitiez.Calculators.MatrixVectorMultiplication(MInverse, rNew);
+                    xNew = Calculators.vectorAddition(xOld, Calculators.vectorScalarMultiplication(a, dOld));
+                    rNew = Calculators.vectorSubtraction(rOld, Calculators.vectorScalarMultiplication(a, AdOld));
+                    sNew = Calculators.MatrixVectorMultiplication(MInverse, rNew);
 
                     //Find error
                     for (int i = 0; i < n; i++) { Error += Math.Sqrt(Math.Pow(rNew[i] - rOld[i], 2)); }
                     Error /= n;
-                    //Error = utilitiez.Calculators.vectorDotProduct(rNew, sNew) / r0s0;
-                    //Error = utilitiez.Calculators.vectorDotProduct(rNew, sNew) / utilitiez.Calculators.vectorDotProduct(rOld, sOld);
+                    //Error = Calculators.vectorDotProduct(rNew, sNew) / r0s0;
+                    //Error = Calculators.vectorDotProduct(rNew, sNew) / Calculators.vectorDotProduct(rOld, sOld);
                     
                     
                     Console.WriteLine("iteration: " + iterations + "   Error: " + Error);
@@ -673,15 +673,15 @@ namespace prizaLinearAlgebra
                     if (Error < stopCriterion) { break; }
                     else
                     {
-                        rTs = utilitiez.Calculators.vectorDotProduct(rNew, sNew);
+                        rTs = Calculators.vectorDotProduct(rNew, sNew);
                         b = rTs / rOldTsOld;
-                        dNew = utilitiez.Calculators.vectorAddition(sNew, utilitiez.Calculators.vectorScalarMultiplication(b, dOld));
+                        dNew = Calculators.vectorAddition(sNew, Calculators.vectorScalarMultiplication(b, dOld));
 
                         //update values
-                        xOld = utilitiez.Calculators.vectorEquals(xNew);
-                        dOld = utilitiez.Calculators.vectorEquals(dNew);
-                        rOld = utilitiez.Calculators.vectorEquals(rNew);
-                        sOld = utilitiez.Calculators.vectorEquals(sNew);
+                        xOld = Calculators.vectorEquals(xNew);
+                        dOld = Calculators.vectorEquals(dNew);
+                        rOld = Calculators.vectorEquals(rNew);
+                        sOld = Calculators.vectorEquals(sNew);
                     }
                 }
             }
@@ -734,7 +734,7 @@ namespace prizaLinearAlgebra
             IterativeSolution();
 
             //Print
-            //utilitiez.CSRPrinter(A, values, column, rowOffset);
+            //CSRPrinter(A, values, column, rowOffset);
             utilitiez.CompressedIterativeMethodPrinter(vector, xNew, iterations, rNew);
 
             return xNew;
@@ -993,12 +993,12 @@ namespace prizaLinearAlgebra
                         c = DirectSolvers.CholeskySolver(A, rhs);
 
                         //calculate new x
-                        xNew = utilitiez.Calculators.vectorSubtraction(xOld, c);
+                        xNew = Calculators.vectorSubtraction(xOld, c);
 
                         //calculate error (norm 2)
-                        relativeError = utilitiez.Calculators.Norm2(xNew, xOld);
+                        relativeError = Calculators.Norm2(xNew, xOld);
 
-                        xOld = utilitiez.Calculators.vectorEquals(xNew);
+                        xOld = Calculators.vectorEquals(xNew);
                         NRIterations++;
 
                         //Console.WriteLine("iteration: " + NRIterations + "  error: " + relativeError);

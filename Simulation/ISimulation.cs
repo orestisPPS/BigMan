@@ -16,7 +16,7 @@ namespace Simulations
     public interface ISimulation
     {
         int Id { get; }
-        
+
         SimulationType Type { get; }
         
         Node[,] Nodes { get; }
@@ -25,6 +25,7 @@ namespace Simulations
 
         IDifferentialEquationSolutionMethod SolutionMethod { get; }
 
+        List<Node> FreeDegreesOfFreedom { get; }
         // TODO - Create Solver
 
     }
