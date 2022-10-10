@@ -17,7 +17,7 @@ namespace MathematicalProblems
 
         public IDifferentialEquation Equation { get; }
 
-        public Dictionary<int, IBoundaryCondition> BoundaryConditions { get; }
+        public Dictionary<int, List<IBoundaryCondition>> BoundaryConditions { get; }
 
         public DegreeOfFreedom DegreeOfFreedom { get; }
 

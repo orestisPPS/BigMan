@@ -43,6 +43,7 @@ namespace Meshing
                 }
             }
         }
+        
         private Node[,] InitiateNodes()
         {
             var sw = new Stopwatch();
@@ -108,6 +109,7 @@ namespace Meshing
             var MetricsCalculator = new MetricsCalculator(NodesDictionary, Specs.NNDirectionOne, Specs.NNDirectionTwo);
             sw.Stop();
             Console.WriteLine($"Mesh metrics calculated in {sw.ElapsedMilliseconds} ms");
+            Metrics = MetricsCalculator.MeshMetrics;
         }
 
         private void ClearMemory()

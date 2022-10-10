@@ -10,14 +10,14 @@ namespace MathematicalProblems
         
         public IDifferentialEquation Equation { get; }
 
-        public Dictionary<int, IBoundaryCondition> BoundaryConditions { get; }
+        public Dictionary<int, List<IBoundaryCondition>> BoundaryConditions { get; }
 
         public DegreeOfFreedom DegreeOfFreedom { get; }
         
         public bool IsTransient => false;
 
         public SteadyStateMathematicalProblem(IDifferentialEquation equation,
-                                              Dictionary<int, IBoundaryCondition> boundaryConditions,
+                                              Dictionary<int, List<IBoundaryCondition>> boundaryConditions,
                                               DegreeOfFreedom degreeOfFreedom)
         {
             this.Equation = equation;

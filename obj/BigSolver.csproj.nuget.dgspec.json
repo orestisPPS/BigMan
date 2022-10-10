@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/hal9000/Code/BigMan/BigSolver.csproj": {}
+    "/home/hal9000/Code/BiggMan/BigSolver.csproj": {}
   },
   "projects": {
-    "/home/hal9000/Code/BigMan/BigSolver.csproj": {
+    "/home/hal9000/Code/BiggMan/BigSolver.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/hal9000/Code/BigMan/BigSolver.csproj",
+        "projectUniqueName": "/home/hal9000/Code/BiggMan/BigSolver.csproj",
         "projectName": "BigSolver",
-        "projectPath": "/home/hal9000/Code/BigMan/BigSolver.csproj",
+        "projectPath": "/home/hal9000/Code/BiggMan/BigSolver.csproj",
         "packagesPath": "/home/hal9000/.nuget/packages/",
-        "outputPath": "/home/hal9000/Code/BigMan/obj/",
+        "outputPath": "/home/hal9000/Code/BiggMan/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/hal9000/.nuget/NuGet/NuGet.Config"

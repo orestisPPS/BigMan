@@ -1,16 +1,12 @@
+using BoundaryConditions;
 using prizaLinearAlgebra;
 using utility;
 namespace Meshing
 {
-    public static class BoundaryCreator
+    public abstract class BoundaryCreator
     {
-
-    
-        //SOLVE THE EQUATIONS TO FIND THE 4 MATCHING POINTS OF EACH BOUNDARY
-
-
-
-
+        public abstract Dictionary<int, List<IBoundaryCondition>> DomainDirichletX { get; internal set; }
+        public abstract Dictionary<int, List<IBoundaryCondition>> DomainDirichletY { get; internal set; }
     }
 }
 

@@ -23,6 +23,8 @@ namespace Meshing
         public MetricsCalculator(Dictionary<int, Node> Nodes, int nnx, int nny)
         {
             this.Nodes = Nodes;
+            this.nnx = nnx;
+            this.nny = nny;
             CalculateMeshMetrics();
         }
 
@@ -40,7 +42,7 @@ namespace Meshing
                         break;
 
                     //Bottom Boundary Internal
-                    case var positionInBottomBoundary when boundaryId > 0 && boundaryId < - 1:
+                    case var positionInBottomBoundary when boundaryId > 0 && boundaryId < nnx - 1:
                         metrics = CalculateBottomBoundaryInternalNodeMetrics(node);
                         break;
 
@@ -73,6 +75,10 @@ namespace Meshing
                     case var positionInRightBoundary when (boundaryId > 2 * (nnx - 1) + (nny - 1)) && (boundaryId < 2 * (nnx - 1) + 2 * (nny - 1)):
                         metrics = CalculateLeftBoundaryInternalNodeMetrics(node);
                         break;
+                    //Internal
+                    case var internalNode when boundaryId == -1:
+                        metrics = CalculateInternalNodeMetrics(node);
+                        break;
                     
                     default:
                         throw new Exception("The node is not in the domain.");
@@ -98,9 +104,9 @@ namespace Meshing
 
         private NodeMetrics CalculateBottomLeftCornerNodeMetrics(Node node)
         {
-            var E = new NeighbourFinder(node, Nodes, nnx, nny).NodeHood["E"];
-            var EE  = new NeighbourFinder(E, Nodes, nnx, nny).NodeHood["E"];
-            var N = new NeighbourFinder(node, Nodes, nnx, nny).NodeHood["N"];
+            var E  = new NeighbourFinder(node, Nodes, nnx, nny).NodeHood["E"];
+            var EE = new NeighbourFinder(E, Nodes, nnx, nny).NodeHood["E"];
+            var N  = new NeighbourFinder(node, Nodes, nnx, nny).NodeHood["N"];
             var NN = new NeighbourFinder(N, Nodes, nnx, nny).NodeHood["N"];
             var metrics = new NodeMetrics();
             //[x,ksi, y,ksi]

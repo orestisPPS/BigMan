@@ -18,11 +18,13 @@ namespace Meshing
         private SteadyStateMathematicalProblem MathematicalProblemForY;
         private SteadyStateSimulation SimulationForX;
         private SteadyStateSimulation SimulationForY;
+        private Parallelogram Domain;
     
         public MeshGenerator2D(MeshSpecs2D specs)
         {
             this.MeshSpecs = specs;
             PreProcessor = new MeshPreProcessor(specs);
+            Domain = new Parallelogram(specs);
             MathematicalProblemForX = CreateMathematicalProblemForX();
             MathematicalProblemForY = CreateMathematicalProblemForY();
             ParallelSolution();
@@ -33,9 +35,9 @@ namespace Meshing
         {
             Console.WriteLine("Initiating mathematical problems ...");
             var equationProperties = PreProcessor.DomainProperties;
-            var equationForX =   new ConvectionDiffusionReactionEquation(equationProperties);
+            var equationForX = new ConvectionDiffusionReactionEquation(equationProperties);
             var xDOF = new X();
-            return new SteadyStateMathematicalProblem(equationForX, new Dictionary<int, IBoundaryCondition>(), xDOF);
+            return new SteadyStateMathematicalProblem(equationForX, Domain.DomainDirichletX, xDOF);
         }
 
         private SteadyStateMathematicalProblem CreateMathematicalProblemForY()
@@ -43,7 +45,7 @@ namespace Meshing
             var equationProperties = PreProcessor.DomainProperties;
             var equationForY =   new ConvectionDiffusionReactionEquation(equationProperties);
             var yDOF = new Y();
-            return new SteadyStateMathematicalProblem(equationForY, new Dictionary<int, IBoundaryCondition>(), yDOF);
+            return new SteadyStateMathematicalProblem(equationForY, Domain.DomainDirichletY, yDOF);
         }
 
         private SteadyStateSimulation CreateSimulationForX()

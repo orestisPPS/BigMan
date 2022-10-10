@@ -38,9 +38,8 @@ namespace Meshing
             var bottomBoundary = new DomainBoundary(0);
             for (int i = 0; i < NumberOfNodesX; i++)
             {
-                Nodes[0, i] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
+                Nodes[i, 0] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
                 bottomBoundary.Nodes.Add(Nodes[0, i]);
-                NodeDictionary.Add(new Tuple<int, int>(0, i), Nodes[0, i]);
                 boundaryCounter++;
             }
             DomainBoundaries.Add(0, bottomBoundary);
@@ -49,9 +48,8 @@ namespace Meshing
             var rightBoundary = new DomainBoundary(1);
             for (int i = 1; i < NumberOfNodesY; i++)
             {
-                Nodes[i, NumberOfNodesX - 1] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
-                rightBoundary.Nodes.Add(Nodes[i, NumberOfNodesX - 1]);
-                NodeDictionary.Add(new Tuple<int, int>(i, NumberOfNodesX - 1), Nodes[i, NumberOfNodesX - 1]);
+                Nodes[NumberOfNodesX - 1, i] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
+                rightBoundary.Nodes.Add(Nodes[NumberOfNodesX - 1, i]);
                 boundaryCounter++;
             }
             DomainBoundaries.Add(1, rightBoundary);
@@ -61,9 +59,8 @@ namespace Meshing
             var topBoundary = new DomainBoundary(2);
             for (int i = 1; i < NumberOfNodesX; i++)
             {
-                Nodes[NumberOfNodesY - 1, NumberOfNodesX - 1 - i] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
-                topBoundary.Nodes.Add(Nodes[NumberOfNodesY - 1, NumberOfNodesX - 1 - i]);
-                NodeDictionary.Add(new Tuple<int, int>(NumberOfNodesY - 1, NumberOfNodesX - 1 - i), Nodes[NumberOfNodesY - 1, NumberOfNodesX - 1 - i]);
+                Nodes[NumberOfNodesX - 1 - i, NumberOfNodesY - 1] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
+                topBoundary.Nodes.Add(Nodes[NumberOfNodesX - 1 - i, NumberOfNodesY - 1]);
                 boundaryCounter++;
             }
             DomainBoundaries.Add(2, topBoundary);
@@ -72,9 +69,8 @@ namespace Meshing
             var leftBoundary = new DomainBoundary(3);
             for (int i = 1; i < NumberOfNodesY - 1; i++)
             {
-                Nodes[NumberOfNodesY - 1 - i, 0] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
-                leftBoundary.Nodes.Add(Nodes[NumberOfNodesY - 1 - i, 0]);
-                NodeDictionary.Add(new Tuple<int, int>(NumberOfNodesY - 1 - i, 0), Nodes[NumberOfNodesY - 1 - i, 0]);
+                Nodes[0, NumberOfNodesY - 1 - i] = InitializeBoundaryNode(positionInBoundary : i, nodalBoundaryId: boundaryCounter);
+                leftBoundary.Nodes.Add(Nodes[0, NumberOfNodesY - 1 - i]);
                 boundaryCounter++;
             }
             DomainBoundaries.Add(3, leftBoundary);
@@ -86,7 +82,6 @@ namespace Meshing
             node.Id.Internal = positionInternal;
             return node;
         }
-
         private void CreateDomainInternal()
         {
             //Internal 
@@ -101,13 +96,15 @@ namespace Meshing
                 }
             }
         }
-
+        
         private Node InitializeBoundaryNode(int positionInBoundary, int nodalBoundaryId)
         {
             var node = new Node();
             node.Id.Boundary = nodalBoundaryId;
             return node;
         }
+
+
 
         private void  AssignGlobalIds()
         {
