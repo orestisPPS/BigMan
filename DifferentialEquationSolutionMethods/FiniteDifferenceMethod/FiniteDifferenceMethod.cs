@@ -16,7 +16,7 @@ namespace DifferentialEquationSolutionMethods
         
         public DifferentialEquationsSolutionMethodType Type => DifferentialEquationsSolutionMethodType.FiniteDifferences;
  
-        public INumericalScheme Scheme => SchemeSelector();
+        public INumericalScheme NumericalScheme => SchemeSelector();
 
         public List<Node> FreeDOF { get; internal set; }
 
@@ -68,9 +68,6 @@ namespace DifferentialEquationSolutionMethods
                     default:
                         break;
                 }
-            }
-            {
-
             }
 
         }

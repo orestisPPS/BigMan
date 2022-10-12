@@ -6,7 +6,7 @@ namespace Discretization
         public double Value { get; set; }
         public ParametricKsi()
         {
-
+            Value = double.NaN;
         }
 
         public ParametricKsi(double value)

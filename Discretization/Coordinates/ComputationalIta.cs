@@ -6,7 +6,7 @@ namespace Discretization
         public double Value { get; set; }
         public ParametricIta()
         {
-
+            Value = double.NaN;
         }
 
         public ParametricIta(double value)

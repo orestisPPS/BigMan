@@ -13,18 +13,18 @@ namespace DifferentialEquationSolutionMethods
 
         public IMathematicalProblem Problem { get; }
 
-        public LinearSystem LinearSystem => CreateLinearSystem();
+        public LinearSystem LinearSystem {get;}
 
         public ConvectionDiffusionReactionFiniteDifferenceScheme(Node[,] nodes, IMathematicalProblem problem)
         {
             this.Nodes = nodes;
             this.Problem = problem;
+            this.LinearSystem = CreateLinearSystem();
         }
         
         private LinearSystem CreateLinearSystem()
         {
-            var matrixSize = Nodes.GetLength(0) * Nodes.GetLength(1);
-            var matrix = new Matrix(new double[matrixSize, matrixSize]);
+            var matrix = CreateMatrix();
             var vector = CreateVector();
             return new LinearSystem(matrix, vector);
         }
@@ -62,10 +62,9 @@ namespace DifferentialEquationSolutionMethods
         }
 
 
-        private double[,] CreateSteadyStateMatrix()
+        private IMatrix CreateSteadyStateMatrix()
         {
-            // TODO - Create Matrix
-            return new double[1, 1];
+            return new Matrix();
         }
 
         private double[] CreateSteadyStateVector()

@@ -27,8 +27,8 @@ namespace Meshing
             Domain = new Parallelogram(specs);
             MathematicalProblemForX = CreateMathematicalProblemForX();
             MathematicalProblemForY = CreateMathematicalProblemForY();
-            ParallelSolution();
-
+            SimulationForX = CreateSimulationForX();
+            SimulationForY = CreateSimulationForY();
         }
 
         private SteadyStateMathematicalProblem CreateMathematicalProblemForX()
@@ -52,7 +52,8 @@ namespace Meshing
         {
             var nodes = PreProcessor.Nodes;
             var solutionMethodType = DifferentialEquationsSolutionMethodType.FiniteDifferences;
-            SimulationForX = new SteadyStateSimulation(0, nodes, MathematicalProblemForX, solutionMethodType);
+            var computationalDomainType = ComputationalDomainType.Parametric;
+            SimulationForX = new SteadyStateSimulation(0, nodes, MathematicalProblemForX, solutionMethodType, computationalDomainType);
             return SimulationForX;
         }
 
@@ -60,18 +61,18 @@ namespace Meshing
         {
             var nodes = PreProcessor.Nodes;
             var solutionMethodType = DifferentialEquationsSolutionMethodType.FiniteDifferences;
-            SimulationForY = new SteadyStateSimulation(1, nodes, MathematicalProblemForY, solutionMethodType);
+            var computationalDomainType = ComputationalDomainType.Parametric;
+            SimulationForY = new SteadyStateSimulation(1, nodes, MathematicalProblemForY, solutionMethodType, computationalDomainType);
             return SimulationForY;
         }
 
-        private void ParallelSolution()
-        {
-            Console.WriteLine("Initiating parallel solution ...");
-            Parallel.Invoke(
-                () => SimulationForX = CreateSimulationForX(),
-                () => SimulationForY = CreateSimulationForY()
-            );
-        }
+        // private void ParallelSimulationInitiation()
+        // {
+        //     Parallel.Invoke(
+        //         () => SimulationForX = CreateSimulationForX(),
+        //         () => SimulationForY = CreateSimulationForY()
+        //     );
+        // }
 
     }
 }

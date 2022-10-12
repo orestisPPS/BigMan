@@ -26,7 +26,8 @@ namespace Simulations
         IDifferentialEquationSolutionMethod SolutionMethod { get; }
 
         List<Node> FreeDegreesOfFreedom { get; }
-        // TODO - Create Solver
+        
+        ComputationalDomainType ComputationalDomainType { get; }
 
     }
 }

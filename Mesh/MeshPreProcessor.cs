@@ -19,14 +19,14 @@ namespace Meshing
 
         public DifferentialEquationProperties DomainProperties {get; internal set;}
         
-        private NodeFactory nodeFactory;
+        public NodeFactory NodeFactory {get; internal set;}
 
         public MeshPreProcessor(MeshSpecs2D specs)
         {
             this.Specs = specs;
             Nodes = InitiateNodes();
             AssingCoordinatesToNodes();
-            PrintNodes();
+            //PrintNodes();
             CreateNodeIdDictionary();
             CalculateMeshMetrix();
             DomainProperties = AssignMeshGenerationProperties();
@@ -49,10 +49,10 @@ namespace Meshing
             var sw = new Stopwatch();
             sw.Start();
             Console.WriteLine("Initiating nodes...");
-            nodeFactory = new NodeFactory(numberOfNodesX : Specs.NNDirectionOne, numberOfNodesY : Specs.NNDirectionTwo);
+            NodeFactory = new NodeFactory(numberOfNodesX : Specs.NNDirectionOne, numberOfNodesY : Specs.NNDirectionTwo);
             sw.Stop();
             Console.WriteLine($"Nodes initiated in {sw.ElapsedMilliseconds} ms");
-            return nodeFactory.Nodes;
+            return NodeFactory.Nodes;
         }
 
         private void AssingCoordinatesToNodes()
@@ -80,7 +80,7 @@ namespace Meshing
             Nodes[i, j].Coordinates.Add(CoordinateType.NaturalY, new NaturalY());
         }
 
-        private void   AssgignComputationalMeshCoordinatesToNodes(int i, int j)
+        private void AssgignComputationalMeshCoordinatesToNodes(int i, int j)
         {
 
             Nodes[i, j].Coordinates.Add(CoordinateType.ParametricKsi, new ParametricKsi(i));
@@ -116,8 +116,8 @@ namespace Meshing
         {
             foreach (var node in Nodes)
             {
-                node.Coordinates.Remove(CoordinateType.ParametricKsi);
-                node.Coordinates.Remove(CoordinateType.ParametricIta);
+                //node.Coordinates.Remove(CoordinateType.ParametricKsi);
+                //node.Coordinates.Remove(CoordinateType.ParametricIta);
                 node.Coordinates.Remove(CoordinateType.TemplateX);
                 node.Coordinates.Remove(CoordinateType.TemplateY);
             }

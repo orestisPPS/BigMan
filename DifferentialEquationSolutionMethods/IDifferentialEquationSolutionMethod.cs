@@ -6,7 +6,8 @@ namespace DifferentialEquationSolutionMethods
     public enum DifferentialEquationsSolutionMethodType
     {
         FiniteDifferences,
-        FiniteElements
+        FiniteElements, 
+        IsogeometricAnalysis
     }
 
     public interface IDifferentialEquationSolutionMethod
@@ -15,7 +16,7 @@ namespace DifferentialEquationSolutionMethods
 
         IMathematicalProblem MathematicalProblem { get; }
 
-        INumericalScheme Scheme { get; }
+        INumericalScheme NumericalScheme { get; }
 
         List<Node> FreeDOF { get; }
 

@@ -6,7 +6,7 @@ namespace Discretization
         public double Value { get; set; }
         public NaturalX()
         {
-
+            Value = double.NaN;
         }
 
         public NaturalX(double value)

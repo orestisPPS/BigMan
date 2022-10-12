@@ -6,7 +6,7 @@ namespace Discretization
         public double Value { get; set; }
         public TemplateX()
         {
-
+            Value = double.NaN;
         }
 
         public TemplateX(double value)

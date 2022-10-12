@@ -1,5 +1,11 @@
 namespace Discretization
 {
+    public enum ComputationalDomainType
+    {
+        Natural,
+        Parametric
+    }
+    
     public enum CoordinateType
     {
         NaturalX,
@@ -7,7 +13,7 @@ namespace Discretization
         NaturalZ,
         ParametricKsi,
         ParametricIta,
-        ComputationalGiota,
+        ComputationalZeta,
         TemplateX,
         TemplateY,
         TemplateZ,
